@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="ENU Capsule - A Gift From The Future On Enumivo">
+        <meta name="author" content="enufutureone">
+        <link rel="shortcut icon" href="assets/img/enu-logo.png">
+    
+        <title>ENU Token Creator - Creat A Token By Youself On Enumivo</title>
+    
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        
+        <!-- Custom styles for this template -->
+        <link href="assets/css/main.css" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+        <nav class="navbar navbar-expand-md bg-light navbar-light">
+                <a class="navbar-brand" href="#">ENU Token Creator</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav">
+                                <!--<li class="nav-item">
+                                      <a class="nav-link" href="#">Creat Token</a>
+                                </li>
+                                <li class="nav-item">
+                                      <a class="nav-link" href="#">Transfer Token</a>
+                                </li> -->
+                        </ul>
+                </div>  
+        </nav>
+      
+        <div class="container">
+                        <div class="col-md-4 m-auto">
+                            <div class="card" style="margin-top:50px;">
+                                <div class="card-body">
+                                    <ul id="myTab" class="nav nav-tabs">
+                                        <li class="nav-item">
+                                                <a class="nav-link active" href="#create" data-toggle="tab">创建</a>
+                                        </li>
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="#transfer" data-toggle="tab">转账</a>
+                                        </li>
+                                    </ul>
+                                    <div id="myTabContent" class="tab-content">
+                                        <div class="tab-pane active" id="create">
+                                            <p class="card-text text-center" style="color: dimgray">创建发行你的专属Token</p>
+                                            <label for="inputAccount" class="inputLabel">发币账户</label>
+                                            <input type="account" id="inputAccount" class="form-control" placeholder="例如： enuswsmakeit" required>
+                                            <label for="inputAmount" class="inputLabel">发币数量</label>
+                                            <input type="amount" id="inputAmount" class="form-control" placeholder="例如： 10000000.0000" required>
+                                            <label for="inputSymbol" class="inputLabel">发币符号</label>
+                                            <input type="symbol" id="inputSymbol" class="form-control" placeholder="例如： SYS" required>
+                                            <label for="inputFee" id="labelFee" class="inputLabel">支付费用(ENU)</label>
+                                            <input type="fee" id="inputFee" class="form-control" readonly value="3.0000" required>
+                                            <button type="button" id="createToken" class="btn btn-success btn-block" style="margin-top: 20px;">发币</button>
+                                        </div>
+                                        <div class="tab-pane fade" id="transfer">
+                                            <p class="card-text text-center" style="color:dimgray">你创建的Token转账</p>
+                                            <label for="inputSender" class="inputLabel">发送方</label>
+                                            <input type="account" id="inputSender" class="form-control" placeholder="例如： enuswsmakeit" required>
+                                            <label for="inputReceiver" class="inputLabel">接收方</label>
+                                            <input type="account" id="inputReceiver" class="form-control" placeholder="例如： enuswsmakeit" required>                                    
+                                            <label for="inputAmount2" class="inputLabel">转账数量</label>
+                                            <div class="input-group">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+                                                        代币
+                                                      </button>
+                                                      <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">ENU</a>
+                                                        <a class="dropdown-item" href="#">LTS</a>
+                                                        <a class="dropdown-item" href="#">TC</a>
+                                                      </div>
+                                                </div>
+                                                <input type="amount" id="inputAmount2" class="form-control" placeholder="例如： 10.0000" required>
+                                            </div>                                 
+                                            <label for="inputMemo" class="inputLabel">备注(Memo)</label>
+                                            <input type="amount" id="inputMemo" class="form-control" required>
+                                            <button type="button" id="sendToken" class="btn btn-success btn-block" style="margin-top: 20px;">转账</button>
+                                         </div>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+        <div id="c">
+                <div class="container">
+                        <p>By <a href="https://enufuture.github.io" target="_blank">smakeit</a></p>
+                </div>
+        </div>
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://cdn.bootcss.com/smoothscroll/1.3.8/SmoothScroll.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+        function getLayerLoad(tcId){
+$.ajax({ 
+url:layerSelUrl,
+ dataType:'jsonp',
+ data:'',
+ jsonp:'callback',
+ async:false,
+ jsonpCallback:"success_jsonpCallback",
+ success:function(data){
+ $("#"+tcId).empty();
+ $("#"+tcId).append("<option>---请选择---</option>");
+ $.each(data.bussinessTypes,function(i,o){
+ var opt="";
+ if(o.url){
+ opt+='<option url='+o.url+'>'+i+'</option>';
+  
+ }else{
+ opt+='<option url="">'+i+'</option>';
+ }
+ $("#"+tcId).append(opt);
+ });
+ $("#"+tcId).selectpicker('refresh');//动态加载
+ },error:function(){
+ }
+});
+}
+</script>
