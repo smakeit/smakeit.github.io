@@ -182,6 +182,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 $("#tokenSel").append(opts);
                 $("#tokenSel").selectpicker('refresh');
                 //$('#tokenSel').selectpicker('val', 0);
+                alert(symbol);
                 $(".alert-success").alert(symbol);
 		        window.setTimeout(function() { $(".alert-success").alert('close'); }, 2000);
           });
