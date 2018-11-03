@@ -38,6 +38,18 @@
       
         <div class="container">
                         <div class="col-md-4 m-auto">
+                            <div class="alert alert-success hide" id="alertSuccess">
+                                <a href="#" class="close" data-dismiss="alert">
+                                    &times;
+                                </a>
+                                您的网络已连接。
+                            </div>
+                            <div class="alert alert-danger hide" id="alertFail">
+                                <a href="#" class="close" data-dismiss="alert">
+                                    &times;
+                                </a>
+                                您的网络连接有问题。
+                            </div> 
                             <div class="card" style="margin-top:50px;">
                                 <div class="card-body">
                                     <ul id="myTab" class="nav nav-tabs">
@@ -94,12 +106,7 @@
                                                 <label for="inputMemo" class="inputLabel">备注(Memo)</label>
                                                 <input type="amount" id="inputMemo" class="form-control" required>
                                             </div>
-                                            <div class="alert alert-success" id="alertSuccess">
-                                                <a href="#" class="close" data-dismiss="alert">
-                                                    &times;
-                                                </a>
-                                                <strong>警告！</strong>您的网络连接有问题。
-                                            </div>                              
+                                      
                                             <button type="button" id="sendToken" class="btn btn-success btn-block" style="margin-top: 20px;">转账</button>
                                          </div>
                                       </div>
@@ -188,7 +195,10 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 $("#tokenSel").append(opts);
                 $("#tokenSel").selectpicker('refresh');
 
-		        //window.setTimeout(function() { $(".alert-success").alert('close'); }, 2000);
+		        window.setTimeout(function() {
+                    $(".alert-success").text("ENU");
+                    $(".alert-success").alert('close');
+                    }, 2000);
           });
 
           
