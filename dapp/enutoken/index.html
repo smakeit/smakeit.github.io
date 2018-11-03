@@ -84,7 +84,7 @@
                                             <div class="form-group">
                                                 <label for="inputAmount2" class="inputLabel">转账数量</label>
                                                 <div class="input-group">
-                                                        <select class="form-control selectpicker col-sm-4" id="tokenSel" data-live-search="true" data-style="btn btn-default">
+                                                        <select class="form-control selectpicker col-sm-3" id="tokenSel" data-live-search="true" data-style="btn btn-default">
                                                                                    
                                                         </select>
                                                 <input type="amount" id="inputAmount2" class="form-control" placeholder="例如： 10.0000" required>
@@ -93,7 +93,13 @@
                                             <div class="form-group">
                                                 <label for="inputMemo" class="inputLabel">备注(Memo)</label>
                                                 <input type="amount" id="inputMemo" class="form-control" required>
-                                            </div>                                 
+                                            </div>
+                                            <div class="alert alert-success" id="alertSuccess">
+                                                <a href="#" class="close" data-dismiss="alert">
+                                                    &times;
+                                                </a>
+                                                <strong>警告！</strong>您的网络连接有问题。
+                                            </div>                              
                                             <button type="button" id="sendToken" class="btn btn-success btn-block" style="margin-top: 20px;">转账</button>
                                          </div>
                                       </div>
@@ -182,7 +188,6 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 $("#tokenSel").append(opts);
                 $("#tokenSel").selectpicker('refresh');
 
-                $(".alert-success").alert();
 		        window.setTimeout(function() { $(".alert-success").alert('close'); }, 2000);
           });
 
