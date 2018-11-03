@@ -11,6 +11,7 @@
     
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link href="https://cdn.bootcss.com/bootstrap-select/1.13.2/css/bootstrap-select.min.css" rel="stylesheet">
         
         <!-- Custom styles for this template -->
         <link href="assets/css/main.css" rel="stylesheet">
@@ -49,39 +50,51 @@
                                     </ul>
                                     <div id="myTabContent" class="tab-content">
                                         <div class="tab-pane active" id="create">
+                                            <br>
                                             <p class="card-text text-center" style="color: dimgray">创建发行你的专属Token</p>
-                                            <label for="inputAccount" class="inputLabel">发币账户</label>
-                                            <input type="account" id="inputAccount" class="form-control" placeholder="例如： enuswsmakeit" required>
-                                            <label for="inputAmount" class="inputLabel">发币数量</label>
-                                            <input type="amount" id="inputAmount" class="form-control" placeholder="例如： 10000000.0000" required>
-                                            <label for="inputSymbol" class="inputLabel">发币符号</label>
-                                            <input type="symbol" id="inputSymbol" class="form-control" placeholder="例如： SYS" required>
-                                            <label for="inputFee" id="labelFee" class="inputLabel">支付费用(ENU)</label>
-                                            <input type="fee" id="inputFee" class="form-control" readonly value="3.0000" required>
+                                            <div class="form-group">
+                                                <label for="inputAccount" class="inputLabel">发币账户</label>
+                                                <input type="account" id="inputAccount" class="form-control" placeholder="例如： enuswsmakeit" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputAmount" class="inputLabel">发币数量</label>
+                                                <input type="amount" id="inputAmount" class="form-control" placeholder="例如： 10000000.0000" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputSymbol" class="inputLabel">发币符号</label>
+                                                <input type="symbol" id="inputSymbol" class="form-control" placeholder="例如： SYS" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputFee" id="labelFee" class="inputLabel">支付费用(ENU)</label>
+                                                <input type="fee" id="inputFee" class="form-control" readonly value="3.0000" required>
+                                            </div>
                                             <button type="button" id="createToken" class="btn btn-success btn-block" style="margin-top: 20px;">发币</button>
                                         </div>
                                         <div class="tab-pane fade" id="transfer">
-                                            <p class="card-text text-center" style="color:dimgray">你创建的Token转账</p>
-                                            <label for="inputSender" class="inputLabel">发送方</label>
-                                            <input type="account" id="inputSender" class="form-control" placeholder="例如： enuswsmakeit" required>
-                                            <label for="inputReceiver" class="inputLabel">接收方</label>
-                                            <input type="account" id="inputReceiver" class="form-control" placeholder="例如： enuswsmakeit" required>                                    
-                                            <label for="inputAmount2" class="inputLabel">转账数量</label>
-                                            <div class="input-group">
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
-                                                        代币
-                                                      </button>
-                                                      <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#">ENU</a>
-                                                        <a class="dropdown-item" href="#">LTS</a>
-                                                        <a class="dropdown-item" href="#">TC</a>
-                                                      </div>
-                                                </div>
+                                            <br>
+                                            <p class="card-text text-center" style="color:dimgray">将你创建的Token转账</p>
+                                            <div class="form-group">
+                                                <label for="inputSender" class="inputLabel">发送方</label>
+                                                <input type="account" id="inputSender" class="form-control" placeholder="例如： enuswsmakeit" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputReceiver" class="inputLabel">接收方</label>
+                                                <input type="account" id="inputReceiver" class="form-control" placeholder="例如： enuswsmakeit" required>                                    
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputAmount2" class="inputLabel">转账数量</label>
+                                                <div class="input-group">
+                                                        <select class="form-control selectpicker col-sm-4" id="tokenSel" data-live-search="true" data-style="btn btn-default">
+                                                                <option value="1">ENU</option>
+                                                                <option value="2">TC</option>                        
+                                                        </select>
                                                 <input type="amount" id="inputAmount2" class="form-control" placeholder="例如： 10.0000" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputMemo" class="inputLabel">备注(Memo)</label>
+                                                <input type="amount" id="inputMemo" class="form-control" required>
                                             </div>                                 
-                                            <label for="inputMemo" class="inputLabel">备注(Memo)</label>
-                                            <input type="amount" id="inputMemo" class="form-control" required>
                                             <button type="button" id="sendToken" class="btn btn-success btn-block" style="margin-top: 20px;">转账</button>
                                          </div>
                                       </div>
@@ -100,32 +113,131 @@
 <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://cdn.bootcss.com/smoothscroll/1.3.8/SmoothScroll.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+<script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/i18n/defaults-zh_CN.min.js"></script>
+<script src="assets/js/enu.min.js"></script>
 <script type="text/javascript">
-        function getLayerLoad(tcId){
-$.ajax({ 
-url:layerSelUrl,
- dataType:'jsonp',
- data:'',
- jsonp:'callback',
- async:false,
- jsonpCallback:"success_jsonpCallback",
- success:function(data){
- $("#"+tcId).empty();
- $("#"+tcId).append("<option>---请选择---</option>");
- $.each(data.bussinessTypes,function(i,o){
- var opt="";
- if(o.url){
- opt+='<option url='+o.url+'>'+i+'</option>';
-  
- }else{
- opt+='<option url="">'+i+'</option>';
- }
- $("#"+tcId).append(opt);
- });
- $("#"+tcId).selectpicker('refresh');//动态加载
- },error:function(){
- }
-});
+
+document.addEventListener('ironmanLoaded', ironmanExtension => {
+        console.log('ironmanExtension load');
+
+        const ironman = window.ironman;
+        //防止别的网页应用 调用window.ironman 对象
+        window.ironman = null;
+
+        // If you want to require a specific version of ironman
+        //ironman.requireVersion(1.1);
+
+        const enuNetwork = {
+          blockchain: 'enu',
+          chainId: 'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f'
+        };
+
+        //给用户推荐网络， 第一次需要授权
+        ironman.suggestNetwork(enuNetwork);
+
+        // ironman.getIdentity 用户授权页面
+        ironman.getIdentity({
+          accounts: [enuNetwork]
+        }).then(
+          identity => {
+
+          //1. 用户授权完成后，获取用户的ENU帐号名字（12位长度），传给后台完成登录or注册操作操作
+          const account = identity.accounts.find(acc => acc.blockchain === 'enu');
+          console.log("1. 用户授权完成后，获取用户信息，提交给后台完成用户登录or注册", identity);
+          //ENU参数，仅签名不广播交易
+          const enuOptions = {
+            broadcast: true,
+            chainId: "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f"
+          }
+          //获取ENU instance
+          const enu = ironman.enu(enuNetwork, Enu, enuOptions, "https");
+
+          const requiredFields = {
+            accounts: [enuNetwork]
+          }
+          
+          $('#inputAccount').val(account.name);
+
+          enu.getTableRows({
+                code: "enu.token",
+                scope: account.name,
+                table: "accounts",
+                limit: 500,
+                json: true
+              }).then(table => {
+                let length = table.rows.length;
+                //let balance = table.rows[0].balance;
+                $("#tokenSel").empty();
+                var opts = "";
+                for(let i=0;i<length;i++ ){
+                        opts += "<option value='"+i+"'>"+table.rows[i].name+" "+table.rows[i].balance+"</option>";
+                }
+                $("#tokenSel").append(opts);
+                $("#tokenSel").selectpicker('refresh');
+               
+          });
+
+          $('#createToken').on('click', function (event) {
+            console.log("createToken Button Clicked");
+            event.preventDefault();
+            let account = $('#inputAccount').val() || account.name;
+            
+            //检查输入格式
+            if(account == ""){
+              alert("账户不能为空");
+            }
+            let amount = $('#inputAmount').val();
+            let wei = (amount.split(".")[1]).length;
+            if(wei > 18)
+            {
+              alert("小数点后不能超过18位");
+            }
+            let symbol = ($('#inputSymbol').val()).toUpperCase();
+            if(symbol == "" || " " == symbol.match(" ") || symbol.length > 6){
+              alert("符号格式不对，不能为空，不能超过6位或有空格");
+            }
+            let supply = amount + " " + symbol;
+
+            let quantity = $('#inputFee').val() + " ENU";
+
+            let contractAcnt = "i";
+
+            //发送enu至合约账户
+            enu.contract('enu.token', {
+                 requiredFields
+             }).then(contract => {
+                 contract.transfer( account.name, contractAcnt, quantity, supply ).then(trx => {
+                     console.log("signature", trx);
+                     let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
+                     console.log("trans success", url);
+                     //$('.message-transfer').show(400);
+                     //$('#j_transaction_id').html(trx.transaction_id);
+                     //$('#j_result').attr('href', url);
+                 }).catch(e => {
+                     console.log("error", e);
+                     if (e.toString().includes("overdrawn balance")) {
+                         alert("No money, go back to Getting Started and refill")
+                     }
+                     let error = JSON.parse(e);
+                     alert(error.message || 'Server Error');
+                 })
+             });
+          });
+
+        });
+    });
+          
+window.onload = function () {
+        showSel();
+     }
+function showSel(){
+        // $("#tokenSel").empty();
+        // var opts = "";
+        // opts += "<option value='"+1+"'>"+"ENU"+"</option>";
+        // opts += "<option value='"+2+"'>"+"PPC"+"</option>";
+        // opts += "<option value='"+3+"'>"+"TC"+"</option>";
+        // $("#tokenSel").append(opts);
+        // $("#tokenSel").selectpicker('refresh');
 }
 </script>
