@@ -1,13 +1,15 @@
 
-body {
+/* body {
     background-color: #34495e;
-}
+    
+} */
 
 
 
 /* Links */
 a {
-    color: black;
+    color: dimgray;
+    
     word-wrap: break-word;
 
     -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
@@ -34,16 +36,17 @@ a:after {
 }
 
 #c {
-    background: white;
+    /*background: white;*/
     margin-top: 50px;
-    text-align: center;
+    text-align: right;
 }
 
 #c p {
     /*color: white;*/
-    color: black;
-    font-size: 15px;
+    color: white;
+    font-size: 18px;
     padding-top: 10px;
     padding-bottom: 10px;
     margin-bottom: 0px;
+    font-weight: 600;
 }
