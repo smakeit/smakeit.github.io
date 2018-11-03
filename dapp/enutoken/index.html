@@ -169,10 +169,10 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 //let balance = table.rows[0].balance;
                 $("#tokenSel").empty();
                 var opts = "";
-                var balance = table.rows[i].balance;
-                var symbol = balance.split(" ")[1];
                 for(let i=0;i<length;i++ ){
-                        opts += "<option value='"+i+"'>"+symbol+"</option>";
+                    var balance = table.rows[i].balance;
+                    var symbol = balance.split(" ")[1];
+                    opts += "<option value='"+i+"'>"+symbol+"</option>";
                 }
                 $("#tokenSel").append(opts);
                 $("#tokenSel").selectpicker('refresh');
