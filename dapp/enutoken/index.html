@@ -156,6 +156,8 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
             accounts: [enuNetwork]
           }
           
+          var arrBalance = [];
+
           $('#inputAccount').val(account.name);
 
           enu.getTableRows({
@@ -172,6 +174,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 for(let i=0;i<length;i++ ){
                     var balance = table.rows[i].balance;
                     var symbol = balance.split(" ")[1];
+                    arrBalance.push(balance.split(" ")[0]);
                     opts += "<option value='"+i+"'>"+symbol+"</option>";
                 }
                 $("#tokenSel").append(opts);
@@ -225,6 +228,25 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                      alert(error.message || 'Server Error');
                  })
              });
+          });
+          $('#transToken').on('click', function (event) {
+                console.log("transToken Button Clicked");
+                let sender = $('#inputSender').val() || account.name;
+                //检查输入格式
+                if(sender == ""){
+                    alert("发送账户不能为空");
+                }
+                let receiver = $('#inputReceiver').val();
+                //检查输入格式
+                if(receiver == ""){
+                    alert("接收账户不能为空");
+                }
+                var symbol=$("#tokenSel option:selected").text();
+                let amount = $('#inputAmount2').val();
+                let balance = arrBalance[$("#tokenSel option:selected").val()];
+                if(amount == ""){
+                    alert("转账数量不能为空");
+                }
           });
 
         });
