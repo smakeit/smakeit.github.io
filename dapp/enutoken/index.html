@@ -248,6 +248,38 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 if(amount == ""){
                     alert("转账数量不能为空");
                 }
+                if (parseFloat(amount).toString() == "NaN") {
+                    alert("填写转账数量错误");
+                }
+                if (parseFloat(balance).toString() == "NaN") {
+                    alert("获取余额数量错误");
+                }
+                if (parseFloat(amount) >  parseFloat(balance)) {
+                    alert("余额不足");
+                }
+                let quantity = amount + " " + symbol;
+                let memo = $('#inputMemo').val();
+
+                //发送enu至合约账户
+                enu.contract('enu.token', {
+                    requiredFields
+                }).then(contract => {
+                    contract.transfer( sender, receiver, quantity, memo ).then(trx => {
+                        console.log("signature", trx);
+                        let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
+                        console.log("trans success", url);
+                        //$('.message-transfer').show(400);
+                        //$('#j_transaction_id').html(trx.transaction_id);
+                        //$('#j_result').attr('href', url);
+                    }).catch(e => {
+                        console.log("error", e);
+                        if (e.toString().includes("overdrawn balance")) {
+                            alert("No money, go back to Getting Started and refill")
+                        }
+                        let error = JSON.parse(e);
+                        alert(error.message || 'Server Error');
+                    })
+                });
           });
 
         });
