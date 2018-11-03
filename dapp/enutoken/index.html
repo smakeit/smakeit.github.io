@@ -228,6 +228,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                      //$('.message-transfer').show(400);
                      //$('#j_transaction_id').html(trx.transaction_id);
                      //$('#j_result').attr('href', url);
+                     alert("创建成功: "+ url)
                  }).catch(e => {
                      console.log("error", e);
                      if (e.toString().includes("overdrawn balance")) {
@@ -275,6 +276,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                         //$('.message-transfer').show(400);
                         //$('#j_transaction_id').html(trx.transaction_id);
                         //$('#j_result').attr('href', url);
+                        alert("转账成功: "+ url)
                     }).catch(e => {
                         console.log("error", e);
                         if (e.toString().includes("overdrawn balance")) {
