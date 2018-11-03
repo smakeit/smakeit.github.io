@@ -171,6 +171,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 $("#tokenSel").empty();
                 var opts = "";
                 for(let i=0;i<length;i++ ){
+                        let na = table.rows[i].name;
                         opts += "<option value='"+i+"'>"+table.rows[i].name+" "+table.rows[i].balance+"</option>";
                 }
                 $("#tokenSel").append(opts);
