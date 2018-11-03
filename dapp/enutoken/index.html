@@ -37,19 +37,7 @@
         </nav>
       
         <div class="container">
-                        <div class="col-md-4 m-auto">
-                            <div class="alert alert-success hidden .fade .in" id="alertSuccess">
-                                <a href="#" class="close" data-dismiss="alert">
-                                    &times;
-                                </a>
-                                您的网络已连接。
-                            </div>
-                            <div class="alert alert-danger hidden fade in" id="alertFail">
-                                <a href="#" class="close" data-dismiss="alert">
-                                    &times;
-                                </a>
-                                您的网络连接有问题。
-                            </div> 
+                        <div class="col-md-4 m-auto"> 
                             <div class="card" style="margin-top:50px;">
                                 <div class="card-body">
                                     <ul id="myTab" class="nav nav-tabs">
@@ -128,7 +116,8 @@
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/i18n/defaults-zh_CN.min.js"></script>
-<script src="assets/js/enu.min.js"></script>
+<!--<script src="assets/js/enu.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/enujs@16.0.8/lib/enu.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
 document.addEventListener('ironmanLoaded', ironmanExtension => {
@@ -195,10 +184,10 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 $("#tokenSel").append(opts);
                 $("#tokenSel").selectpicker('refresh');
 
-		        window.setTimeout(function() {
-                    $("#alertSuccess").text("ENU");
-                    $("#alertSuccess").alert('close');
-                    }, 2000);
+		        // window.setTimeout(function() {
+                //     $("#alertSuccess").text("ENU");
+                //     $("#alertSuccess").alert('close');
+                //     }, 2000);
           });
 
           
