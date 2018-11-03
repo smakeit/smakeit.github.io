@@ -159,6 +159,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
           var arrBalance = [];
 
           $('#inputAccount').val(account.name);
+          $('#inputSender').val(account.name);
 
           enu.getTableRows({
                 code: "enu.token",
@@ -186,7 +187,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
           $('#createToken').on('click', function (event) {
             console.log("createToken Button Clicked");
             event.preventDefault();
-            let account = $('#inputAccount').val() || account.name;
+            let account = $('#inputAccount').val();
             
             //检查输入格式
             if(account == ""){
@@ -229,9 +230,9 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                  })
              });
           });
-          $('#transToken').on('click', function (event) {
+          $('#sendToken').on('click', function (event) {
                 console.log("transToken Button Clicked");
-                let sender = $('#inputSender').val() || account.name;
+                let sender = $('#inputSender').val();
                 //检查输入格式
                 if(sender == ""){
                     alert("发送账户不能为空");
