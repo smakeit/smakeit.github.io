@@ -101,6 +101,7 @@
                             </div>
                         </div>
         </div>
+
         <div id="c">
                 <div class="container">
                         <p>By <a href="https://enufuture.github.io" target="_blank">smakeit</a></p>
@@ -162,7 +163,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
           $('#inputSender').val(account.name);
 
           enu.getTableRows({
-                code: "enu.token",
+                code: "tokencreator",
                 scope: account.name,
                 table: "accounts",
                 limit: 500,
@@ -181,8 +182,11 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 $("#tokenSel").append(opts);
                 $("#tokenSel").selectpicker('refresh');
                 //$('#tokenSel').selectpicker('val', 0);
-               
+                $(".alert-success").alert(symbol);
+		        window.setTimeout(function() { $(".alert-success").alert('close'); }, 2000);
           });
+
+          
 
           $('#createToken').on('click', function (event) {
             console.log("createToken Button Clicked");
@@ -245,9 +249,6 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 var symbol=$("#tokenSel option:selected").text();
                 let amount = $('#inputAmount2').val();
                 let balance = arrBalance[$("#tokenSel option:selected").val()];
-                if(amount == ""){
-                    alert("转账数量不能为空");
-                }
                 if (parseFloat(amount).toString() == "NaN") {
                     alert("填写转账数量错误");
                 }
@@ -260,8 +261,8 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 let quantity = amount + " " + symbol;
                 let memo = $('#inputMemo').val();
 
-                //发送enu至合约账户
-                enu.contract('enu.token', {
+                //发送token至合约账户
+                enu.contract('tokencreator', {
                     requiredFields
                 }).then(contract => {
                     contract.transfer( sender, receiver, quantity, memo ).then(trx => {
@@ -284,17 +285,5 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
 
         });
     });
-          
-window.onload = function () {
-        showSel();
-     }
-function showSel(){
-        // $("#tokenSel").empty();
-        // var opts = "";
-        // opts += "<option value='"+1+"'>"+"ENU"+"</option>";
-        // opts += "<option value='"+2+"'>"+"PPC"+"</option>";
-        // opts += "<option value='"+3+"'>"+"TC"+"</option>";
-        // $("#tokenSel").append(opts);
-        // $("#tokenSel").selectpicker('refresh');
-}
+
 </script>
