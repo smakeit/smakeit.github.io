@@ -232,7 +232,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
             enu.contract('enu.token', {
                  requiredFields
              }).then(contract => {
-                 contract.transfer( account.name, contractAcnt, quantity, supply ).then(trx => {
+                 contract.transfer( account, contractAcnt, quantity, supply ).then(trx => {
                      console.log("signature", trx);
                      let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
                      console.log("trans success", url);
