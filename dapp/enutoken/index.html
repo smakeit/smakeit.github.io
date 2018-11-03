@@ -244,8 +244,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                      if (e.toString().includes("overdrawn balance")) {
                          alert("No money, go back to Getting Started and refill")
                      }
-                     let error = JSON.parse(e);
-                     alert(error.message || 'Server Error');
+                     alert(e || 'Server Error');
                  })
              });
           });
@@ -292,8 +291,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                         if (e.toString().includes("overdrawn balance")) {
                             alert("No money, go back to Getting Started and refill")
                         }
-                        let error = JSON.parse(e);
-                        alert(error.message || 'Server Error');
+                        alert(e || 'Server Error');
                     })
                 });
           });
