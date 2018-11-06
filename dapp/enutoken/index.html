@@ -109,11 +109,11 @@
 <!--<script src="assets/js/enu.min.js"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/enujs@16.0.8/lib/enu.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
-
+ironman = null;
 document.addEventListener('ironmanLoaded', ironmanExtension => {
         console.log('ironmanExtension load');
 
-        const ironman = window.ironman;
+        ironman = window.ironman;
         //防止别的网页应用 调用window.ironman 对象
         window.ironman = null;
 
