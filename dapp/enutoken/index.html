@@ -99,11 +99,6 @@
                     </div>
         </div>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-route.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-resource.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-animate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-cookies.min.js"></script>
 
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -111,71 +106,14 @@
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/i18n/defaults-zh_CN.min.js"></script>
-<!--<script src="assets/js/enu.min.js"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/enujs@16.0.8/lib/enu.min.js" crossorigin="anonymous"></script>
-
+<script type="text/javascript" src="js/common.1.js"></script>
 <script type="text/javascript">
-const enuNetwork = {
-          blockchain: 'enu',
-          chainId: 'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f'
-};
-//ENU参数，仅签名不广播交易
-const enuOptions = {
-            broadcast: true,
-            chainId: "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f"
-}
-var app = angular.module('myApp', []);
-app.controller('myCtrl', function($scope) {
-    
-});
-$(document).bind('ironmanLoaded', ironmanExtension => {
-    $scope.ironman = window.ironman;
-    window.ironman = null; // for security reason
-    //$scope.scatter.requireVersion(1.0);
-    $scope.ironman.getIdentity({accounts: [enuNetwork]}).then(
-        identity => {
-            console.log("identity => " + JSON.stringify(identity));
-            // you can save identity for future use, i saved it as follow
-            $scope.$apply(function () {
-                $scope.publicKey = identity.publicKey;
-                $scope.accountName = identity.accounts[0].name;
-                console.log("accountName =>" + $scope.accountName);
-                console.log("publicKey =>" + $scope.publicKey);
+initIronman(cb);
 
-            $('#inputAccount').val(scope.accountName);
-            $('#inputSender').val(scope.accountName);
-            const enu = $scope.ironman.enu(enuNetwork, Enu, enuOptions, "https");
-            const requiredFields = {
-                accounts: [enuNetwork]
-            }
-            enu.getTableRows({
-                code: "tokencreator",
-                scope: account.name,
-                table: "accounts",
-                limit: 500,
-                json: true
-              }).then(table => {
-                let length = table.rows.length;
-                $("#tokenSel").empty();
-                var opts = "";
-                $scope.arrBalance=[];
-                for(let i=0;i<length;i++ ){
-                    var balance = table.rows[i].balance;
-                    var symbol = balance.split(" ")[1];
-                    $scope.arrBalance.push(balance.split(" ")[0]);
-                    opts += "<option value='"+i+"'>"+symbol+"</option>";
-                }
-                $("#tokenSel").append(opts);
-                $("#tokenSel").selectpicker('refresh');
-          });
-            })
-        }).catch(
-        e => {
-            console.log("error", e);
-        }
-    );
-});
-$('#createToken').on('click', function (event) {
+function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
+    //getAccountBalance(enu, account);
+    $('#createToken').on('click', function (event) {
             console.log("createToken Button Clicked");
             event.preventDefault();
             let account = $('#inputAccount').val();
@@ -226,9 +164,10 @@ $('#createToken').on('click', function (event) {
                      alert(e || 'Server Error');
                  })
              });
-});
-$('#sendToken').on('click', function (event) {
-                console.log("transToken Button Clicked");
+    });
+    $('#sendToken').on('click', function (event) {
+                console.log("sendToken Button Clicked");
+                event.preventDefault();
                 let sender = $('#inputSender').val();
                 //检查输入格式
                 if(sender == ""){
@@ -279,5 +218,10 @@ $('#sendToken').on('click', function (event) {
                         alert(e || 'Server Error');
                     })
                 });
-});
+    });
+}
+
+
+
+
 </script>
