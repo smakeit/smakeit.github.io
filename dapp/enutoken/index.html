@@ -173,11 +173,6 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 }
                 $("#tokenSel").append(opts);
                 $("#tokenSel").selectpicker('refresh');
-
-		        // window.setTimeout(function() {
-                //     $("#alertSuccess").text("ENU");
-                //     $("#alertSuccess").alert('close');
-                //     }, 2000);
           });
 
           
@@ -206,6 +201,12 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
             let quantity = $('#inputFee').val() + " ENU";
 
             let contractAcnt = "tokencreator";
+
+            const enu = ironman.enu(enuNetwork, Enu, enuOptions, "https");
+
+            const requiredFields = {
+                accounts: [enuNetwork]
+            }
 
             //发送enu至合约账户
             enu.contract('enu.token', {
@@ -254,7 +255,12 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 }
                 let quantity = amount + " " + symbol;
                 let memo = $('#inputMemo').val();
+                
+                const enu = ironman.enu(enuNetwork, Enu, enuOptions, "https");
 
+                const requiredFields = {
+                    accounts: [enuNetwork]
+                }
                 //发送token至合约账户
                 enu.contract('tokencreator', {
                     requiredFields
