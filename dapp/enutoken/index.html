@@ -99,6 +99,11 @@
                     </div>
         </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-route.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-resource.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-animate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-cookies.min.js"></script>
 
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -108,8 +113,8 @@
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/i18n/defaults-zh_CN.min.js"></script>
 <!--<script src="assets/js/enu.min.js"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/enujs@16.0.8/lib/enu.min.js" crossorigin="anonymous"></script>
+
 <script type="text/javascript">
-let ironman = null;
 const enuNetwork = {
           blockchain: 'enu',
           chainId: 'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f'
@@ -119,43 +124,27 @@ const enuOptions = {
             broadcast: true,
             chainId: "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f"
 }
+$(document).bind('ironmanLoaded', ironmanExtension => {
+    $scope.ironman = window.ironman;
+    window.ironman = null; // for security reason
+    //$scope.scatter.requireVersion(1.0);
+    $scope.ironman.getIdentity({accounts: [enuNetwork]}).then(
+        identity => {
+            console.log("identity => " + JSON.stringify(identity));
+            // you can save identity for future use, i saved it as follow
+            $scope.$apply(function () {
+                $scope.publicKey = identity.publicKey;
+                $scope.accountName = identity.accounts[0].name;
+                console.log("accountName =>" + $scope.accountName);
+                console.log("publicKey =>" + $scope.publicKey);
 
-document.addEventListener('ironmanLoaded', ironmanExtension => {
-        console.log('ironmanExtension load');
-
-        ironman = window.ironman;
-        //防止别的网页应用 调用window.ironman 对象
-        window.ironman = null;
-
-        // If you want to require a specific version of ironman
-        //ironman.requireVersion(1.1);
-
-        //给用户推荐网络， 第一次需要授权
-        ironman.suggestNetwork(enuNetwork);
-
-        // ironman.getIdentity 用户授权页面
-        ironman.getIdentity({
-          accounts: [enuNetwork]
-        }).then(
-          identity => {
-
-          //1. 用户授权完成后，获取用户的ENU帐号名字（12位长度），传给后台完成登录or注册操作操作
-          const account = identity.accounts.find(acc => acc.blockchain === 'enu');
-          console.log("1. 用户授权完成后，获取用户信息，提交给后台完成用户登录or注册", identity);
-          
-          //获取ENU instance
-          const enu = ironman.enu(enuNetwork, Enu, enuOptions, "https");
-
-          const requiredFields = {
-            accounts: [enuNetwork]
-          }
-          
-          var arrBalance = [];
-
-          $('#inputAccount').val(account.name);
-          $('#inputSender').val(account.name);
-
-          enu.getTableRows({
+            $('#inputAccount').val(scope.accountName);
+            $('#inputSender').val(scope.accountName);
+            const enu = $scope.ironman.enu(enuNetwork, Enu, enuOptions, "https");
+            const requiredFields = {
+                accounts: [enuNetwork]
+            }
+            enu.getTableRows({
                 code: "tokencreator",
                 scope: account.name,
                 table: "accounts",
@@ -163,22 +152,26 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 json: true
               }).then(table => {
                 let length = table.rows.length;
-                //let balance = table.rows[0].balance;
                 $("#tokenSel").empty();
                 var opts = "";
+                $scope.arrBalance=[];
                 for(let i=0;i<length;i++ ){
                     var balance = table.rows[i].balance;
                     var symbol = balance.split(" ")[1];
-                    arrBalance.push(balance.split(" ")[0]);
+                    $scope.arrBalance.push(balance.split(" ")[0]);
                     opts += "<option value='"+i+"'>"+symbol+"</option>";
                 }
                 $("#tokenSel").append(opts);
                 $("#tokenSel").selectpicker('refresh');
           });
-
-          
-
-          $('#createToken').on('click', function (event) {
+            })
+        }).catch(
+        e => {
+            console.log("error", e);
+        }
+    );
+});
+$('#createToken').on('click', function (event) {
             console.log("createToken Button Clicked");
             event.preventDefault();
             let account = $('#inputAccount').val();
@@ -203,7 +196,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
 
             let contractAcnt = "tokencreator";
 
-            const enu = ironman.enu(enuNetwork, Enu, enuOptions, "https");
+            const enu = $scope.ironman.enu(enuNetwork, Enu, enuOptions, "https");
 
             const requiredFields = {
                 accounts: [enuNetwork]
@@ -229,8 +222,8 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                      alert(e || 'Server Error');
                  })
              });
-          });
-          $('#sendToken').on('click', function (event) {
+});
+$('#sendToken').on('click', function (event) {
                 console.log("transToken Button Clicked");
                 let sender = $('#inputSender').val();
                 //检查输入格式
@@ -244,7 +237,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 }
                 var symbol=$("#tokenSel option:selected").text();
                 let amount = $('#inputAmount2').val();
-                let balance = arrBalance[$("#tokenSel option:selected").val()];
+                let balance = $scope.arrBalance[$("#tokenSel option:selected").val()];
                 if (parseFloat(amount).toString() == "NaN") {
                     alert("填写转账数量错误");
                 }
@@ -257,7 +250,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 let quantity = amount + " " + symbol;
                 let memo = $('#inputMemo').val();
                 
-                const enu = ironman.enu(enuNetwork, Enu, enuOptions, "https");
+                const enu = $scope.ironman.enu(enuNetwork, Enu, enuOptions, "https");
 
                 const requiredFields = {
                     accounts: [enuNetwork]
@@ -282,9 +275,5 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                         alert(e || 'Server Error');
                     })
                 });
-          });
-
-        });
-    });
-
+});
 </script>
