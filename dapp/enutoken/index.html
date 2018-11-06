@@ -124,6 +124,10 @@ const enuOptions = {
             broadcast: true,
             chainId: "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f"
 }
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.carname = "Volvo";
+});
 $(document).bind('ironmanLoaded', ironmanExtension => {
     $scope.ironman = window.ironman;
     window.ironman = null; // for security reason
