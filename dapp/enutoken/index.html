@@ -23,7 +23,7 @@
                 }
         </style>
 </head>
-<body>
+<body ng-app="myApp" ng-controller="myCtrl">
         <a class="navbar-brand" style="margin-left: 20px; margin-top: 15px; font-size:25px; font-weight: 800; color: white" href="#">ENU Token Creator</a>
 
         <div class="container">
@@ -126,7 +126,7 @@ const enuOptions = {
 }
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope) {
-    $scope.carname = "Volvo";
+    
 });
 $(document).bind('ironmanLoaded', ironmanExtension => {
     $scope.ironman = window.ironman;
