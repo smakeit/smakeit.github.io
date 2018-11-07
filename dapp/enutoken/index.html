@@ -111,6 +111,28 @@
 <script type="text/javascript">
 initIronman(cb);
 function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
+
+    enu.contract('tokencreator', {
+                    requiredFields
+                }).then(contract => {
+                    contract.tokentrans( 'enuswsmakeit', 'tokencreator', '1.0000 TC', 'memo' ).then(trx => {
+                        console.log("signature", trx);
+                        let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
+                        console.log("trans success", url);
+                        //$('.message-transfer').show(400);
+                        //$('#j_transaction_id').html(trx.transaction_id);
+                        //$('#j_result').attr('href', url);
+                        alert("转账成功: "+ url);
+                    }).catch(e => {
+                        console.log("error", e);
+                        if (e.toString().includes("overdrawn balance")) {
+                            alert("No money, go back to Getting Started and refill")
+                        }
+                        alert(e || 'Server Error');
+                    })
+                });
+
+
     //getAccountBalance(enu, account);
     $('#sendToken').on('click', function (event) {
                 console.log("sendToken Button Clicked");
@@ -184,7 +206,7 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
 
             let quantity = $('#inputFee').val() + " ENU";
 
-            let contractAcnt = "tokencreator";
+            let contractAcnt = "i";
 
             //发送enu至合约账户
             enu.contract('enu.token', {
