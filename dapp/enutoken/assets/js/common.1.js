@@ -37,6 +37,7 @@ function initIronman(callback) {
                 const requiredFields = {
                     accounts: [enuNetwork]
                 };
+                var arrTokenBalance = []
                 enu.getTableRows({
                     code: "tokencreator",
                     scope: accountName,
@@ -47,7 +48,7 @@ function initIronman(callback) {
                     let length = table.rows.length;
                     $("#tokenSel").empty();
                     var opts = "";
-                    var arrTokenBalance = []
+                    
                     for(let i=0;i<length;i++ ){
                         var balance = table.rows[i].balance;
                         var symbol = balance.split(" ")[1];
@@ -58,12 +59,11 @@ function initIronman(callback) {
                     $("#tokenSel").selectpicker('refresh');
                 });
                 callback(ironman, enu, requiredFields, account, arrTokenBalance);
-            })
+        });
                 
-            }).catch(
-            e => {
-                console.log("error", e);
-            });
+    }).catch(e => {
+        console.log("error", e);
+    });
 }
 
 
