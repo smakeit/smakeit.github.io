@@ -56,9 +56,10 @@ function initIronman(callback) {
                     }
                     $("#tokenSel").append(opts);
                     $("#tokenSel").selectpicker('refresh');
-                    });
-            })
+                });
                 callback(ironman, enu, requiredFields, account, arrTokenBalance);
+            })
+                
             }).catch(
             e => {
                 console.log("error", e);
