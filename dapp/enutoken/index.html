@@ -112,28 +112,6 @@
 initIronman(cb);
 function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
 
-    enu.contract('tokencreator', {
-                    requiredFields
-                }).then(contract => {
-                    contract.transfer( 'enuswsmakeit', 'tokencreator', '1.0000 TC', 'memo' ,{authorization: 'enuswsmakeit'}).then(trx => {
-                        console.log("signature", trx);
-                        let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
-                        console.log("trans success", url);
-                        //$('.message-transfer').show(400);
-                        //$('#j_transaction_id').html(trx.transaction_id);
-                        //$('#j_result').attr('href', url);
-                        alert("转账成功: "+ url);
-                    }).catch(e => {
-                        console.log("error", e);
-                        if (e.toString().includes("overdrawn balance")) {
-                            alert("No money, go back to Getting Started and refill")
-                        }
-                        alert(e || 'Server Error');
-                    })
-                });
-
-
-    //getAccountBalance(enu, account);
     $('#sendToken').on('click', function (event) {
                 console.log("sendToken Button Clicked");
                 event.preventDefault();
@@ -166,7 +144,7 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                 enu.contract('tokencreator', {
                     requiredFields
                 }).then(contract => {
-                    contract.tokentrans( sender, receiver, quantity, memo ).then(trx => {
+                    contract.tokentrans( sender, receiver, quantity, memo ,{authorization: sender}).then(trx => {
                         console.log("signature", trx);
                         let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
                         console.log("trans success", url);
@@ -212,7 +190,7 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
             enu.contract('enu.token', {
                  requiredFields
              }).then(contract => {
-                 contract.transfer( accountName, contractAcnt, quantity, supply ).then(trx => {
+                 contract.transfer( accountName, contractAcnt, quantity, supply ,{authorization: accountName}).then(trx => {
                      console.log("signature", trx);
                      let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
                      console.log("trans success", url);
