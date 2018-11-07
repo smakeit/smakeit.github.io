@@ -115,10 +115,10 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
     $('#createToken').on('click', function (event) {
             console.log("createToken Button Clicked");
             event.preventDefault();
-            let account = $('#inputAccount').val();
+            let accountName = $('#inputAccount').val();
             
             //检查输入格式
-            if(account == ""){
+            if(accountName == ""){
               alert("账户不能为空");
             }
             let amount = $('#inputAmount').val();
@@ -137,17 +137,11 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
 
             let contractAcnt = "tokencreator";
 
-            const enu = $scope.ironman.enu(enuNetwork, Enu, enuOptions, "https");
-
-            const requiredFields = {
-                accounts: [enuNetwork]
-            }
-
             //发送enu至合约账户
             enu.contract('enu.token', {
                  requiredFields
              }).then(contract => {
-                 contract.transfer( account, contractAcnt, quantity, supply ).then(trx => {
+                 contract.transfer( accountName, contractAcnt, quantity, supply ).then(trx => {
                      console.log("signature", trx);
                      let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
                      console.log("trans success", url);
@@ -179,7 +173,7 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                 }
                 var symbol=$("#tokenSel option:selected").text();
                 let amount = $('#inputAmount2').val();
-                let balance = $scope.arrBalance[$("#tokenSel option:selected").val()];
+                let balance = arrTokenBalance[$("#tokenSel option:selected").val()];
                 if (parseFloat(amount).toString() == "NaN") {
                     alert("填写转账数量错误");
                 }
@@ -191,13 +185,8 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                 }
                 let quantity = amount + " " + symbol;
                 let memo = $('#inputMemo').val();
-                
-                const enu = $scope.ironman.enu(enuNetwork, Enu, enuOptions, "https");
 
-                const requiredFields = {
-                    accounts: [enuNetwork]
-                }
-                //发送token至合约账户
+                //转账token
                 enu.contract('tokencreator', {
                     requiredFields
                 }).then(contract => {
