@@ -59,10 +59,10 @@ function initIronman(callback) {
                     $("#tokenSel").selectpicker('refresh');
                 });
                 callback(ironman, enu, requiredFields, account, arrTokenBalance);
+        }).catch(e => {
+            console.log("error", e);
         });
                 
-    }).catch(e => {
-        console.log("error", e);
     });
 }
 
