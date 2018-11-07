@@ -15,26 +15,16 @@
         
         <!-- Custom styles for this template -->
         <link href="assets/css/main.css" rel="stylesheet">
-        <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+        <link href='https://cdn.baomitu.com/index/fonts/css?family=Montserrat' rel='stylesheet' type='text/css'>
+        <link href='https://cdn.baomitu.com/index/fonts/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+        <style>
+                body{
+                    background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSI+CjxyZWN0IHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgZmlsbD0iIzI4MjgyOCI+PC9yZWN0Pgo8Y2lyY2xlIGN4PSIzIiBjeT0iNC4zIiByPSIxLjgiIGZpbGw9IiMzOTM5MzkiPjwvY2lyY2xlPgo8Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMS44IiBmaWxsPSJibGFjayI+PC9jaXJjbGU+CjxjaXJjbGUgY3g9IjEwLjUiIGN5PSIxMi41IiByPSIxLjgiIGZpbGw9IiMzOTM5MzkiPjwvY2lyY2xlPgo8Y2lyY2xlIGN4PSIxMC41IiBjeT0iMTEuMyIgcj0iMS44IiBmaWxsPSJibGFjayI+PC9jaXJjbGU+Cjwvc3ZnPg==");
+                }
+        </style>
 </head>
-<body>
-        <nav class="navbar navbar-expand-md bg-light navbar-light">
-                <a class="navbar-brand" href="#">ENU Token Creator</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                        <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                        <ul class="navbar-nav">
-                                <!--<li class="nav-item">
-                                      <a class="nav-link" href="#">Creat Token</a>
-                                </li>
-                                <li class="nav-item">
-                                      <a class="nav-link" href="#">Transfer Token</a>
-                                </li> -->
-                        </ul>
-                </div>  
-        </nav>
+<body ng-app="myApp" ng-controller="myCtrl">
+        <a class="navbar-brand" style="margin-left: 20px; margin-top: 15px; font-size:25px; font-weight: 800; color: white" href="#">ENU Token Creator</a>
 
         <div class="container">
                         <div class="col-md-4 m-auto"> 
@@ -104,9 +94,9 @@
         </div>
 
         <div id="c">
-                <div class="container">
-                        <p>By <a href="https://enufuture.github.io" target="_blank">smakeit</a></p>
-                </div>
+                <div class="container" >
+                        <p>By <a href="https://enumivo.com/topic/830-smakeits-introduction/" style="color: gray;" target="_blank">smakeit</a></p>
+                    </div>
         </div>
 </body>
 
@@ -116,83 +106,13 @@
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/i18n/defaults-zh_CN.min.js"></script>
-<!--<script src="assets/js/enu.min.js"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/enujs@16.0.8/lib/enu.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/common.1.js"></script>
 <script type="text/javascript">
-
-document.addEventListener('ironmanLoaded', ironmanExtension => {
-        console.log('ironmanExtension load');
-
-        const ironman = window.ironman;
-        //防止别的网页应用 调用window.ironman 对象
-        window.ironman = null;
-
-        // If you want to require a specific version of ironman
-        ironman.requireVersion(1.1);
-
-        const enuNetwork = {
-          blockchain: 'enu',
-          chainId: 'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f'
-        };
-
-        //给用户推荐网络， 第一次需要授权
-        ironman.suggestNetwork(enuNetwork);
-
-        // ironman.getIdentity 用户授权页面
-        ironman.getIdentity({
-          accounts: [enuNetwork]
-        }).then(
-          identity => {
-
-          //1. 用户授权完成后，获取用户的ENU帐号名字（12位长度），传给后台完成登录or注册操作操作
-          const account = identity.accounts.find(acc => acc.blockchain === 'enu');
-          console.log("1. 用户授权完成后，获取用户信息，提交给后台完成用户登录or注册", identity);
-          //ENU参数，仅签名不广播交易
-          const enuOptions = {
-            broadcast: true,
-            chainId: "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f"
-          }
-          //获取ENU instance
-          const enu = ironman.enu(enuNetwork, Enu, enuOptions, "https");
-
-          const requiredFields = {
-            accounts: [enuNetwork]
-          }
-          
-          var arrBalance = [];
-
-          $('#inputAccount').val(account.name);
-          $('#inputSender').val(account.name);
-
-          enu.getTableRows({
-                code: "tokencreator",
-                scope: account.name,
-                table: "accounts",
-                limit: 500,
-                json: true
-              }).then(table => {
-                let length = table.rows.length;
-                //let balance = table.rows[0].balance;
-                $("#tokenSel").empty();
-                var opts = "";
-                for(let i=0;i<length;i++ ){
-                    var balance = table.rows[i].balance;
-                    var symbol = balance.split(" ")[1];
-                    arrBalance.push(balance.split(" ")[0]);
-                    opts += "<option value='"+i+"'>"+symbol+"</option>";
-                }
-                $("#tokenSel").append(opts);
-                $("#tokenSel").selectpicker('refresh');
-
-		        // window.setTimeout(function() {
-                //     $("#alertSuccess").text("ENU");
-                //     $("#alertSuccess").alert('close');
-                //     }, 2000);
-          });
-
-          
-
-          $('#createToken').on('click', function (event) {
+initIronman(cb);
+function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
+    //getAccountBalance(enu, account);
+    $('#createToken').on('click', function (event) {
             console.log("createToken Button Clicked");
             event.preventDefault();
             let account = $('#inputAccount').val();
@@ -217,6 +137,12 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
 
             let contractAcnt = "tokencreator";
 
+            const enu = $scope.ironman.enu(enuNetwork, Enu, enuOptions, "https");
+
+            const requiredFields = {
+                accounts: [enuNetwork]
+            }
+
             //发送enu至合约账户
             enu.contract('enu.token', {
                  requiredFields
@@ -228,7 +154,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                      //$('.message-transfer').show(400);
                      //$('#j_transaction_id').html(trx.transaction_id);
                      //$('#j_result').attr('href', url);
-                     alert("创建成功: "+ url)
+                     alert("创建成功: "+ url);
                  }).catch(e => {
                      console.log("error", e);
                      if (e.toString().includes("overdrawn balance")) {
@@ -237,9 +163,10 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                      alert(e || 'Server Error');
                  })
              });
-          });
-          $('#sendToken').on('click', function (event) {
-                console.log("transToken Button Clicked");
+    });
+    $('#sendToken').on('click', function (event) {
+                console.log("sendToken Button Clicked");
+                event.preventDefault();
                 let sender = $('#inputSender').val();
                 //检查输入格式
                 if(sender == ""){
@@ -252,7 +179,7 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 }
                 var symbol=$("#tokenSel option:selected").text();
                 let amount = $('#inputAmount2').val();
-                let balance = arrBalance[$("#tokenSel option:selected").val()];
+                let balance = $scope.arrBalance[$("#tokenSel option:selected").val()];
                 if (parseFloat(amount).toString() == "NaN") {
                     alert("填写转账数量错误");
                 }
@@ -264,19 +191,24 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                 }
                 let quantity = amount + " " + symbol;
                 let memo = $('#inputMemo').val();
+                
+                const enu = $scope.ironman.enu(enuNetwork, Enu, enuOptions, "https");
 
+                const requiredFields = {
+                    accounts: [enuNetwork]
+                }
                 //发送token至合约账户
                 enu.contract('tokencreator', {
                     requiredFields
                 }).then(contract => {
-                    contract.transfer( sender, receiver, quantity, memo ).then(trx => {
+                    contract.tokentrans( sender, receiver, quantity, memo ).then(trx => {
                         console.log("signature", trx);
                         let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
                         console.log("trans success", url);
                         //$('.message-transfer').show(400);
                         //$('#j_transaction_id').html(trx.transaction_id);
                         //$('#j_result').attr('href', url);
-                        alert("转账成功: "+ url)
+                        alert("转账成功: "+ url);
                     }).catch(e => {
                         console.log("error", e);
                         if (e.toString().includes("overdrawn balance")) {
@@ -285,9 +217,10 @@ document.addEventListener('ironmanLoaded', ironmanExtension => {
                         alert(e || 'Server Error');
                     })
                 });
-          });
-
-        });
     });
+}
+
+
+
 
 </script>
