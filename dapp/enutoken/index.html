@@ -107,57 +107,11 @@
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/i18n/defaults-zh_CN.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/enujs@16.0.8/lib/enu.min.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="assets/js/common.1.js?version=1.1.0"></script>
+<script type="text/javascript" src="assets/js/common.1.js?version=1.1.1"></script>
 <script type="text/javascript">
 initIronman(cb);
 function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
     //getAccountBalance(enu, account);
-    $('#createToken').on('click', function (event) {
-            console.log("createToken Button Clicked");
-            event.preventDefault();
-            let accountName = $('#inputAccount').val();
-            
-            //检查输入格式
-            if(accountName == ""){
-              alert("账户不能为空");
-            }
-            let amount = $('#inputAmount').val();
-            let wei = (amount.split(".")[1]).length;
-            if(wei > 18)
-            {
-              alert("小数点后不能超过18位");
-            }
-            let symbol = ($('#inputSymbol').val()).toUpperCase();
-            if(symbol == "" || " " == symbol.match(" ") || symbol.length > 6){
-              alert("符号格式不对，不能为空，不能超过6位或有空格");
-            }
-            let supply = amount + " " + symbol;
-
-            let quantity = $('#inputFee').val() + " ENU";
-
-            let contractAcnt = "tokencreator";
-
-            //发送enu至合约账户
-            enu.contract('enu.token', {
-                 requiredFields
-             }).then(contract => {
-                 contract.transfer( accountName, contractAcnt, quantity, supply ).then(trx => {
-                     console.log("signature", trx);
-                     let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
-                     console.log("trans success", url);
-                     //$('.message-transfer').show(400);
-                     //$('#j_transaction_id').html(trx.transaction_id);
-                     //$('#j_result').attr('href', url);
-                     alert("创建成功: "+ url);
-                 }).catch(e => {
-                     console.log("error", e);
-                     if (e.toString().includes("overdrawn balance")) {
-                         alert("No money, go back to Getting Started and refill")
-                     }
-                     alert(e || 'Server Error');
-                 })
-             });
-    });
     $('#sendToken').on('click', function (event) {
                 console.log("sendToken Button Clicked");
                 event.preventDefault();
@@ -206,6 +160,52 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                         alert(e || 'Server Error');
                     })
                 });
+    });
+    $('#createToken').on('click', function (event) {
+            console.log("createToken Button Clicked");
+            event.preventDefault();
+            let accountName = $('#inputAccount').val();
+            
+            //检查输入格式
+            if(accountName == ""){
+              alert("账户不能为空");
+            }
+            let amount = $('#inputAmount').val();
+            let wei = (amount.split(".")[1]).length;
+            if(wei > 18)
+            {
+              alert("小数点后不能超过18位");
+            }
+            let symbol = ($('#inputSymbol').val()).toUpperCase();
+            if(symbol == "" || " " == symbol.match(" ") || symbol.length > 6){
+              alert("符号格式不对，不能为空，不能超过6位或有空格");
+            }
+            let supply = amount + " " + symbol;
+
+            let quantity = $('#inputFee').val() + " ENU";
+
+            let contractAcnt = "tokencreator";
+
+            //发送enu至合约账户
+            enu.contract('enu.token', {
+                 requiredFields
+             }).then(contract => {
+                 contract.transfer( accountName, contractAcnt, quantity, supply ).then(trx => {
+                     console.log("signature", trx);
+                     let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
+                     console.log("trans success", url);
+                     //$('.message-transfer').show(400);
+                     //$('#j_transaction_id').html(trx.transaction_id);
+                     //$('#j_result').attr('href', url);
+                     alert("创建成功: "+ url);
+                 }).catch(e => {
+                     console.log("error", e);
+                     if (e.toString().includes("overdrawn balance")) {
+                         alert("No money, go back to Getting Started and refill")
+                     }
+                     alert(e || 'Server Error');
+                 })
+             });
     });
 }
 

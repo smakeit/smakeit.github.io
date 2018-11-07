@@ -39,14 +39,14 @@ function initIronman(callback) {
                 };
                 var arrTokenBalance = []
                 enu.getTableRows({
-                    code: "tokencreator",
+                    code: 'tokencreator',
                     scope: accountName,
-                    table: "accounts",
+                    table: 'accounts',
                     limit: 500,
                     json: true
                   }).then(table => {
                     let length = table.rows.length;
-                    $("#tokenSel").empty();
+                    $('#tokenSel').empty();
                     var opts = "";
                     
                     for(let i=0;i<length;i++ ){
@@ -55,8 +55,8 @@ function initIronman(callback) {
                         arrTokenBalance.push(balance.split(" ")[0]);
                         opts += "<option value='"+i+"'>"+symbol+"</option>";
                     }
-                    $("#tokenSel").append(opts);
-                    $("#tokenSel").selectpicker('refresh');
+                    $('#tokenSel').append(opts);
+                    $('#tokenSel').selectpicker('refresh');
                 });
                 callback(ironman, enu, requiredFields, account, arrTokenBalance);
         }).catch(e => {
