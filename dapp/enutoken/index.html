@@ -151,7 +151,7 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                 enu.contract('tokencreator', {
                     requiredFields
                 }).then(contract => {
-                    contract.tokentrans( sender, receiver, quantity, memo ,{authorization: sender}).then(trx => {
+                    contract.transfer( sender, receiver, quantity, memo ,{authorization: sender}).then(trx => {
                         console.log("signature", trx);
                         let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
                         console.log("trans success", url);
