@@ -57,6 +57,9 @@ function initIronman(callback) {
                     }
                     $('#tokenSel').append(opts);
                     $('#tokenSel').selectpicker('refresh');
+                    if(arrTokenBalance.length > 0) {
+                        $('#inputAmount2').attr('placeholder','余额: '+arrTokenBalance[0]);
+                    }
                 });
                 callback(ironman, enu, requiredFields, account, arrTokenBalance);
         }).catch(e => {
