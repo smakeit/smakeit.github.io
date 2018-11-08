@@ -32,47 +32,49 @@
                                 <div class="card-body">
                                     <ul id="myTab" class="nav nav-tabs">
                                         <li class="nav-item">
-                                                <a class="nav-link active" href="#create" data-toggle="tab">创建</a>
+                                                <a class="nav-link active" href="#create" data-toggle="tab">创建/Create</a>
                                         </li>
                                         <li class="nav-item">
-                                                <a class="nav-link" href="#transfer" data-toggle="tab">转账</a>
+                                                <a class="nav-link" href="#transfer" data-toggle="tab">转账/Transfer</a>
                                         </li>
                                     </ul>
                                     <div id="myTabContent" class="tab-content">
                                         <div class="tab-pane active" id="create">
                                             <br>
-                                            <p class="card-text text-center" style="color: dimgray">创建发行你的专属Token</p>
+                                            <p class="card-text text-center" style="color: dimgray;margin-bottom: 0px;">创建发行你的专属Token</p>
+                                            <p class="card-text text-center" style="color: dimgray;">Create your token by yourself</p>
                                             <div class="form-group">
-                                                <label for="inputAccount" class="inputLabel">发币账户</label>
+                                                <label for="inputAccount" class="inputLabel">发币账户/Issuer</label>
                                                 <input type="account" id="inputAccount" class="form-control" placeholder="例如： enuswsmakeit" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputAmount" class="inputLabel">发币数量</label>
+                                                <label for="inputAmount" class="inputLabel">发币数量/Amount</label>
                                                 <input type="amount" id="inputAmount" class="form-control" placeholder="例如： 10000000.0000" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputSymbol" class="inputLabel">发币符号</label>
+                                                <label for="inputSymbol" class="inputLabel">发币符号/Symbol</label>
                                                 <input type="symbol" id="inputSymbol" class="form-control" placeholder="例如： SYS" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputFee" id="labelFee" class="inputLabel">支付费用(ENU)</label>
+                                                <label for="inputFee" id="labelFee" class="inputLabel">支付费用/Fee(ENU)</label>
                                                 <input type="fee" id="inputFee" class="form-control" readonly value="3.0000" required>
                                             </div>
-                                            <button type="button" id="createToken" class="btn btn-success btn-block" disabled="disabled" style="margin-top: 20px;">发币</button>
+                                            <button type="button" id="createToken" class="btn btn-success btn-block" disabled="disabled" style="margin-top: 20px;">发币/Create</button>
                                         </div>
                                         <div class="tab-pane fade" id="transfer">
                                             <br>
-                                            <p class="card-text text-center" style="color:dimgray">将你创建的Token转账</p>
+                                            <p class="card-text text-center" style="color:dimgray;margin-bottom: 0px;">将你创建的Token转账</p>
+                                            <p class="card-text text-center" style="color:dimgray">Tranfer your token</p>
                                             <div class="form-group">
-                                                <label for="inputSender" class="inputLabel">发送账户</label>
+                                                <label for="inputSender" class="inputLabel">发送账户/Sender</label>
                                                 <input type="account" id="inputSender" class="form-control" placeholder="例如： enuswsmakeit" required>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputReceiver" class="inputLabel">接收账户</label>
+                                                <label for="inputReceiver" class="inputLabel">接收账户/Receiver</label>
                                                 <input type="account" id="inputReceiver" class="form-control" placeholder="例如： enuswsmakeit" required>                                    
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputAmount2" class="inputLabel">转账数量</label>
+                                                <label for="inputAmount2" class="inputLabel">转账数量/Quantity</label>
                                                 
                                                 <div class="input-group">
                                                         <select class="form-control selectpicker col-sm-3" id="tokenSel" data-live-search="true" data-style="btn btn-default">
@@ -82,11 +84,11 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputMemo" class="inputLabel">备注(Memo)</label>
+                                                <label for="inputMemo" class="inputLabel">备注/Memo</label>
                                                 <input type="amount" id="inputMemo" class="form-control" required>
                                             </div>
                                       
-                                            <button type="button" id="sendToken" class="btn btn-success btn-block" disabled="disabled" style="margin-top: 20px;">转账</button>
+                                            <button type="button" id="sendToken" class="btn btn-success btn-block" disabled="disabled" style="margin-top: 20px;">转账/Transfer</button>
                                          </div>
                                       </div>
                                 </div>
@@ -114,7 +116,7 @@ initIronman(cb);
 function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
     $("#tokenSel").change(function() {
         if(arrTokenBalance.length > 0) {
-            $('#inputAmount2').attr('placeholder','余额: '+arrTokenBalance[$("#tokenSel option:selected").val()]);
+            $('#inputAmount2').attr('placeholder','余额balance: '+arrTokenBalance[$("#tokenSel option:selected").val()]);
         }
     });
     $('#sendToken').on('click', function (event) {
@@ -213,8 +215,5 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
              });
     });
 }
-
-
-
 
 </script>
