@@ -112,7 +112,7 @@
 <script type="text/javascript">
 initIronman(cb);
 function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
-    $("#selectID").change(function() {
+    $("#tokenSel").change(function() {
         if(arrTokenBalance.length > 0) {
             $('#inputAmount2').attr('placeholder','余额: '+arrTokenBalance[$("#tokenSel option:selected").val()]);
         }
