@@ -185,7 +185,6 @@ $(document).ready(function () {
                 var symbol=$("#tokenSel option:selected").text();
                 let amount = $('#inputAmount2').val();
                 let balance = arrBalance[$("#tokenSel option:selected").val()];
-                alert(balance);
                 if (parseFloat(amount).toString() == "NaN") {
                     alert("填写转账数量错误");
                     return;
@@ -198,14 +197,9 @@ $(document).ready(function () {
                     alert("余额不足");
                     return;
                 }
-                alert(amount);
                 let quantity = amount + " " + symbol;
                 let memo = $('#inputMemo').val();
-                alert("sender:"+sender);
-                alert("receiver:"+receiver);
-                alert("quantity:"+quantity);
-                alert("memo:"+memo);
-                alert("acntAddresss:"+acntAddresss);
+                alert("acntAddress:"+acntAddress);
                 //转账token
                 tp.pushEnuAction({
                     actions: [
@@ -224,7 +218,7 @@ $(document).ready(function () {
                             }
                         }
                     ],
-                    address: acntAddresss,
+                    address: acntAddress,
                     account: sender
                 }).then(function (result) {
                     if (result.result) {
