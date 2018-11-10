@@ -142,7 +142,7 @@ $(document).ready(function () {
         code: 'enu.token',
         scope: acntName,
         table: 'accounts',
-        limit: 500
+        limit: 20
     }).then(function (result) {
         alert(result.data.rows.length);
         if (result.result) {
