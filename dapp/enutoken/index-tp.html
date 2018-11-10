@@ -138,8 +138,10 @@ $(document).ready(function () {
             return;
         };
     });
-    //acntName = $('#inputAccount').val();
+    acntName = $('#inputAccount').val();
     alert('acntA:'+acntName);
+    acntName = document.getElementById("inputAccount");
+    alert('acnt:'+acntName);
     tp.getEnuTableRows({
         json: true,
         code: 'tokencreator',
