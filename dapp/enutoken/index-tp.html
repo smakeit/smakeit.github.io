@@ -139,10 +139,9 @@ $(document).ready(function () {
     });
     tp.getEnuBalance({
         account: 'enuswsmakeit',
-        contract: 'enu.token',
-        symbol: 'ENU'
+        contract: 'tokencreator',
+        symbol: 'TC'
     }).then(function (result) {
-        alert(result.data);
         alert(result.data.balance);
     });
 
