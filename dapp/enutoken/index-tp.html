@@ -111,11 +111,11 @@
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/i18n/defaults-zh_CN.min.js"></script>
 <script type="text/javascript" src="assets/js/tp.20180824.js"></script>
 <script type="text/javascript">
+    
+$(document).ready(function () {
     var acntName = '';
     var acntAddress = '';
     var arrBalance = [];
-$(document).ready(function () {
-    
     if(!tp.isConnected()) {
         alert("tp钱包连接失败");
         return;
@@ -138,8 +138,8 @@ $(document).ready(function () {
             return;
         };
     });
-    acntName = $('#inputAccount').val();
-    alert('acnt:'+$('#inputAccount').val());
+    //acntName = $('#inputAccount').val();
+    alert('acntA:'+acntName);
     tp.getEnuTableRows({
         json: true,
         code: 'tokencreator',
