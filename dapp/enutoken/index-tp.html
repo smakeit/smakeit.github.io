@@ -123,6 +123,7 @@ $(document).ready(function () {
     var acntAddress = '';
     var arrBalance = [];
     tp.getCurrentWallet().then(function (result) {
+        alert(result);
         if (result.result) {
             acntName = result.data.name;
             acntAddress = result.data.address;
@@ -145,6 +146,7 @@ $(document).ready(function () {
         lower_bound: '20',
         limit: 500
     }).then(function (result) {
+        alert(result);
         if (result.result) {
             let length = result.data.rows.length;
             $("#tokenSel").empty();
