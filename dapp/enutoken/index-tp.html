@@ -145,7 +145,8 @@ $(document).ready(function () {
         lower_bound: '20',
         limit: 500
     }).then(function (result) {
-        alert(result);
+        alert(result.result);
+        alert(result.data.rows);
         if (result.result) {
             let length = result.data.rows.length;
             $("#tokenSel").empty();
