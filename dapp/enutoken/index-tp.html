@@ -142,7 +142,6 @@ $(document).ready(function () {
         code: 'tokencreator',
         scope: acntName,
         table: 'accounts',
-        lower_bound: '20',
         limit: 500
     }).then(function (result) {
         alert(result.data.rows.length);
