@@ -125,11 +125,11 @@ $(document).ready(function () {
     
     tp.getCurrentWallet().then(function (result) {
         if (result.result) {
-            window.acntName = result.data.name;
+            acntName = result.data.name;
             acntAddress = result.data.address;
 
-            $('#inputAccount').val(window.acntName);
-            $('#inputSender').val(window.acntName);
+            $('#inputAccount').val(acntName);
+            $('#inputSender').val(acntName);
             $('#inputAccount').length && $('#inputAccount').prop('disabled', true);
             $('#inputSender').length && $('#inputSender').prop('disabled', true);
         }
@@ -138,11 +138,12 @@ $(document).ready(function () {
             return;
         };
     });
-    alert(window.acntName);
+    acntName = $('#inputAccount').val();
+    alert(acntName);
     tp.getEnuTableRows({
         json: true,
         code: 'tokencreator',
-        scope: window.acntName,
+        scope: acntName,
         table: 'accounts',
         limit: 500
     }).then(function (result) {
