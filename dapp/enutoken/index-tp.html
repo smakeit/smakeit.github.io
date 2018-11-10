@@ -138,10 +138,11 @@ $(document).ready(function () {
         };
     });
     tp.getEnuBalance({
-    account: 'enuswsmakeit',
-    contract: 'enu.token',
-    tokenName: 'ENU'
+        account: 'enuswsmakeit',
+        contract: 'enu.token',
+        symbol: 'ENU'
     }).then(function (result) {
+        alert(result.data);
         alert(result.data.balance);
     });
 
