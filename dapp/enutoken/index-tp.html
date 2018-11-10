@@ -129,8 +129,8 @@ $(document).ready(function () {
             window.acntName = result.data.name;
             acntAddress = result.data.address;
 
-            $('#inputAccount').val(acntName);
-            $('#inputSender').val(acntName);
+            $('#inputAccount').val(window.acntName);
+            $('#inputSender').val(window.acntName);
             $('#inputAccount').length && $('#inputAccount').prop('disabled', true);
             $('#inputSender').length && $('#inputSender').prop('disabled', true);
         }
