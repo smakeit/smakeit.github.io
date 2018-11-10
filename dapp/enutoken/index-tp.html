@@ -137,6 +137,14 @@ $(document).ready(function () {
             return;
         };
     });
+    tp.getEnuBalance({
+    account: 'enuswsmakeit',
+    contract: 'enu.token',
+    tokenName: 'ENU'
+    }).then(function (result) {
+        alert(result.data.balance);
+    });
+
     tp.getEnuTableRows({
         json: true,
         code: 'enu.token',
@@ -150,9 +158,9 @@ $(document).ready(function () {
             $("#tokenSel").empty();
             var opts = "";
             for(let i=0;i<length;i++ ){
-                var balance = result.data.rows[i].balance;
-                var symbol = balance.split(" ")[1];
-                arrBalance.push(balance.split(" ")[0]);
+                var balance = result.data.rows[i].a;
+                var symbol = result.data.rows[i].b;
+                arrBalance.push(balance);
                 opts += "<option value='"+i+"'>"+symbol+"</option>";
             }
             $("#tokenSel").append(opts);
