@@ -111,6 +111,7 @@
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/i18n/defaults-zh_CN.min.js"></script>
 <script type="text/javascript" src="assets/js/tp.20180824.js"></script>
 <script type="text/javascript">
+    window.acntName = '';
     var acntName = '';
     var acntAddress = '';
     var arrBalance = [];
@@ -125,7 +126,7 @@ $(document).ready(function () {
     
     tp.getCurrentWallet().then(function (result) {
         if (result.result) {
-            acntName = result.data.name;
+            window.acntName = result.data.name;
             acntAddress = result.data.address;
 
             $('#inputAccount').val(acntName);
@@ -138,11 +139,11 @@ $(document).ready(function () {
             return;
         };
     });
-    alert(acntName);
+    alert(window.acntName);
     tp.getEnuTableRows({
         json: true,
         code: 'tokencreator',
-        scope: acntName,
+        scope: window.acntName,
         table: 'accounts',
         limit: 500
     }).then(function (result) {
