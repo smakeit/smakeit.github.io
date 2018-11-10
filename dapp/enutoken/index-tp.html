@@ -111,7 +111,9 @@
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/i18n/defaults-zh_CN.min.js"></script>
 <script type="text/javascript" src="assets/js/tp.20180824.js"></script>
 <script type="text/javascript">
-
+var acntName = '';
+var acntAddress = '';
+var arrBalance = [];
 $(document).ready(function () {
     if(!tp.isConnected()) {
         alert("tp钱包连接失败");
@@ -119,9 +121,7 @@ $(document).ready(function () {
     }
     $('#createToken').length && $('#createToken').prop('disabled', false);
     $('#sendToken').length && $('#sendToken').prop('disabled', false);
-    var acntName = '';
-    var acntAddress = '';
-    var arrBalance = [];
+    
     tp.getCurrentWallet().then(function (result) {
         if (result.result) {
             acntName = result.data.name;
@@ -131,14 +131,15 @@ $(document).ready(function () {
             $('#inputSender').val(acntName);
             $('#inputAccount').length && $('#inputAccount').prop('disabled', true);
             $('#inputSender').length && $('#inputSender').prop('disabled', true);
-
+            alert(result.data.name);
+            alert(acntName);
         }
         else{
             alert("获取当前用户信息失败");
             return;
         };
     });
-    alert(acntName);
+    
     tp.getEnuTableRows({
         json: true,
         code: 'tokencreator',
@@ -152,7 +153,7 @@ $(document).ready(function () {
             $("#tokenSel").empty();
             var opts = "";
             for(let i=0;i<length;i++ ){
-                var balance = table.rows[i].balance;
+                var balance = result.data.rows[i].balance;
                 var symbol = balance.split(" ")[1];
                 arrBalance.push(balance.split(" ")[0]);
                 opts += "<option value='"+i+"'>"+symbol+"</option>";
