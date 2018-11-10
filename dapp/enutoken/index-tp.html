@@ -185,6 +185,7 @@ $(document).ready(function () {
                 var symbol=$("#tokenSel option:selected").text();
                 let amount = $('#inputAmount2').val();
                 let balance = arrTokenBalance[$("#tokenSel option:selected").val()];
+                alert(balance);
                 if (parseFloat(amount).toString() == "NaN") {
                     alert("填写转账数量错误");
                     return;
@@ -193,11 +194,11 @@ $(document).ready(function () {
                     alert("获取余额数量错误");
                     return;
                 }
-                alert(balance);
                 if (parseFloat(amount) >  parseFloat(balance)) {
                     alert("余额不足");
                     return;
                 }
+                alert(amount);
                 let quantity = amount + " " + symbol;
                 let memo = $('#inputMemo').val();
                 alert("sender:"+sender);
