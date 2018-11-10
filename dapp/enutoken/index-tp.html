@@ -130,8 +130,8 @@ $(document).ready(function () {
 
             $('#inputAccount').val(acntName);
             $('#inputSender').val(acntName);
-            $('#inputAccount').length && $('#inputAccount').prop('disabled', true);
-            $('#inputSender').length && $('#inputSender').prop('disabled', true);
+            //$('#inputAccount').length && $('#inputAccount').prop('disabled', true);
+            //$('#inputSender').length && $('#inputSender').prop('disabled', true);
         }
         else{
             alert("获取当前用户信息失败");
@@ -139,7 +139,7 @@ $(document).ready(function () {
         };
     });
     acntName = $('#inputAccount').val();
-    alert('acnt:'+acntName);
+    alert('acntA:'+acntName);
     tp.getEnuTableRows({
         json: true,
         code: 'tokencreator',
@@ -171,7 +171,7 @@ $(document).ready(function () {
 
     $("#tokenSel").change(function() {
         if(arrBalance.length > 0) {
-            $('#inputAmount2').attr('placeholder','余额balance: '+arrBalance[$("#tokenSel option:selected").val()]);
+            $('#inputAmount2').attr('placeholder','余额: '+arrBalance[$("#tokenSel option:selected").val()]);
         }
     });
 
