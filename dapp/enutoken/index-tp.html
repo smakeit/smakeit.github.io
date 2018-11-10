@@ -184,7 +184,7 @@ $(document).ready(function () {
                 }
                 var symbol=$("#tokenSel option:selected").text();
                 let amount = $('#inputAmount2').val();
-                let balance = arrTokenBalance[$("#tokenSel option:selected").val()];
+                let balance = arrBalance[$("#tokenSel option:selected").val()];
                 alert(balance);
                 if (parseFloat(amount).toString() == "NaN") {
                     alert("填写转账数量错误");
