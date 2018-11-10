@@ -109,16 +109,70 @@
 <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/i18n/defaults-zh_CN.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/enujs@16.0.8/lib/enu.min.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="assets/js/common.1.js?version=1.1.2"></script>
+<script type="text/javascript" src="assets/js/tp.20180824.js"></script>
 <script type="text/javascript">
-initIronman(cb);
-function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
+
+$(document).ready(function () {
+    if(!tp.isConnected()) {
+        alert("tp钱包连接失败");
+        return;
+    }
+    $('#createToken').length && $('#createToken').prop('disabled', false);
+    $('#sendToken').length && $('#sendToken').prop('disabled', false);
+    var acntName = '';
+    var acntAddress = '';
+    var arrBalance = [];
+    tp.getCurrentWallet().then(function (result) {
+        if (result.result) {
+            acntName = result.data.name;
+            acntAddress = result.data.address;
+
+            $('#inputAccount').val(acntName);
+            $('#inputSender').val(acntName);
+            $('#inputAccount').length && $('#inputAccount').prop('disabled', true);
+            $('#inputSender').length && $('#inputSender').prop('disabled', true);
+        }
+        else{
+            alert("获取当前用户信息失败");
+            return;
+        };
+    });
+    tp.getTableRows({
+        json: true,
+        code: 'tokencreator',
+        scope: acntName,
+        table: 'accounts',
+        lower_bound: '20',
+        limit: 500
+    }).then(function (result) {
+        if (result.result) {
+            let length = result.data.rows.length;
+            $("#tokenSel").empty();
+            var opts = "";
+            for(let i=0;i<length;i++ ){
+                var balance = result.data.rows[i].balance;
+                var symbol = balance.split(" ")[1];
+                arrBalance.push(balance.split(" ")[0]);
+                opts += "<option value='"+i+"'>"+symbol+"</option>";
+            }
+            $("#tokenSel").append(opts);
+            $("#tokenSel").selectpicker('refresh');
+            if(arrBalance.length > 0) {
+                $('#inputAmount2').attr('placeholder','余额balance: '+arrBalance[0]);
+            }
+        }
+        else{
+            alert("获取当前用户token信息失败");
+            return;
+        };
+    });
+
     $("#tokenSel").change(function() {
-        if(arrTokenBalance.length > 0) {
-            $('#inputAmount2').attr('placeholder','余额balance: '+arrTokenBalance[$("#tokenSel option:selected").val()]);
+        if(arrBalance.length > 0) {
+            $('#inputAmount2').attr('placeholder','余额balance: '+arrBalance[$("#tokenSel option:selected").val()]);
         }
     });
+
     $('#sendToken').on('click', function (event) {
                 console.log("sendToken Button Clicked");
                 event.preventDefault();
@@ -153,6 +207,122 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                 let memo = $('#inputMemo').val();
 
                 //转账token
+                tp.pushEnuAction({
+                    actions: [
+                        {
+                            account: 'tokencreator',
+                            name: 'transfer',
+                            authorization: [{
+                                actor: sender,
+                                permission: 'active'
+                            }],
+                            data: {
+                                from: sender,
+                                to: receiver,
+                                quantity: quantity,
+                                memo: memo
+                            }
+                        }
+                    ],
+                    address: acntAddresss,
+                    account: sender
+                }).then(function (result) {
+                    if (result.result) {
+                        let url = `http://enumivo.qsx.io/transactions/${result.data.transactionId}`;
+                        alert("转账成功: "+ url);
+                    }
+                    else{
+                        alert("转账token失败");
+                        return;
+                    };
+                });
+    });
+
+    $('#createToken').on('click', function (event) {
+            console.log("createToken Button Clicked");
+            event.preventDefault();
+            let accountName = $('#inputAccount').val();
+            
+            //检查输入格式
+            if(accountName == ""){
+              alert("账户不能为空");
+              return;
+            }
+            let amount = $('#inputAmount').val();
+            let wei = (amount.split(".")[1]).length;
+            if(wei > 18)
+            {
+              alert("小数点后不能超过18位");
+              return;
+            }
+            let symbol = ($('#inputSymbol').val()).toUpperCase();
+            if(symbol == "" || " " == symbol.match(" ") || symbol.length > 6){
+              alert("符号格式不对，不能为空，不能超过6位或有空格");
+              return;
+            }
+            let supply = amount + " " + symbol;
+
+            let quantity = $('#inputFee').val();
+
+            let contractAcnt = "tokencreator";
+
+            //发送enu至合约账户
+            tp.enuTokenTransfer({
+                from: accountName,
+                to: contractAcnt,
+                amount: quantity,
+                tokenName: 'ENU',
+                precision: 4,
+                contract: 'enu.token',
+                memo: supply,
+                address: acntAddress
+            }).then(function (result) {
+                if (result.result) {
+                    let url = `http://enumivo.qsx.io/transactions/${result.data.transactionId}`;
+                    alert("创建成功: "+ url);
+                }else {
+                    alert("enu转账失败,请检查余额");
+                }
+            });
+    });
+
+});
+
+function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
+    $("#tokenSel").change(function() {
+        if(arrTokenBalance.length > 0) {
+            $('#inputAmount2').attr('placeholder','余额balance: '+arrTokenBalance[$("#tokenSel option:selected").val()]);
+        }
+    });
+    $('#sendToken').on('click', function (event) {
+                console.log("sendToken Button Clicked");
+                event.preventDefault();
+                let sender = $('#inputSender').val();
+                //检查输入格式
+                if(sender == ""){
+                    alert("发送账户不能为空");
+                }
+                let receiver = $('#inputReceiver').val();
+                //检查输入格式
+                if(receiver == ""){
+                    alert("接收账户不能为空");
+                }
+                var symbol=$("#tokenSel option:selected").text();
+                let amount = $('#inputAmount2').val();
+                let balance = arrTokenBalance[$("#tokenSel option:selected").val()];
+                if (parseFloat(amount).toString() == "NaN") {
+                    alert("填写转账数量错误");
+                }
+                if (parseFloat(balance).toString() == "NaN") {
+                    alert("获取余额数量错误");
+                }
+                if (parseFloat(amount) >  parseFloat(balance)) {
+                    alert("余额不足");
+                }
+                let quantity = amount + " " + symbol;
+                let memo = $('#inputMemo').val();
+
+                //转账token
                 enu.contract('tokencreator', {
                     requiredFields
                 }).then(contract => {
@@ -181,19 +351,16 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
             //检查输入格式
             if(accountName == ""){
               alert("账户不能为空");
-              return;
             }
             let amount = $('#inputAmount').val();
             let wei = (amount.split(".")[1]).length;
             if(wei > 18)
             {
               alert("小数点后不能超过18位");
-              return;
             }
             let symbol = ($('#inputSymbol').val()).toUpperCase();
             if(symbol == "" || " " == symbol.match(" ") || symbol.length > 6){
               alert("符号格式不对，不能为空，不能超过6位或有空格");
-              return;
             }
             let supply = amount + " " + symbol;
 
