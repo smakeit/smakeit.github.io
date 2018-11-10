@@ -111,10 +111,10 @@
 <script src="https://cdn.bootcss.com/bootstrap-select/1.13.2/js/i18n/defaults-zh_CN.min.js"></script>
 <script type="text/javascript" src="assets/js/tp.20180824.js"></script>
 <script type="text/javascript">
-acntName = '';
-var acntAddress = '';
-var arrBalance = [];
 $(document).ready(function () {
+    acntName = '';
+    var acntAddress = '';
+    var arrBalance = [];
     if(!tp.isConnected()) {
         alert("tp钱包连接失败");
         return;
