@@ -120,6 +120,8 @@ $(document).ready(function () {
         alert("tp钱包连接失败");
         return;
     }
+    $('#createToken').length && $('#createToken').prop('disabled', false);
+    $('#sendToken').length && $('#sendToken').prop('disabled', false);
     tp.getCurrentWallet().then(function (result) {
         if (result.result) {
             acntName = result.data.name;
@@ -164,16 +166,8 @@ $(document).ready(function () {
                     $('#inputAmount2').attr('placeholder','余额: '+arrBalance[$("#tokenSel option:selected").val()]);
                 }
             });
-        }
-        else{
-            alert("获取当前用户信息失败");
-            return;
-        };
-    });
 
-    
-
-    $('#sendToken').on('click', function (event) {
+            $('#sendToken').on('click', function (event) {
                 console.log("sendToken Button Clicked");
                 event.preventDefault();
                 let sender = $('#inputSender').val();
@@ -236,56 +230,66 @@ $(document).ready(function () {
                         return;
                     };
                 });
-    });
-
-    $('#createToken').on('click', function (event) {
-            console.log("createToken Button Clicked");
-            event.preventDefault();
-            let accountName = $('#inputAccount').val();
-            
-            //检查输入格式
-            if(accountName == ""){
-              alert("账户不能为空");
-              return;
-            }
-            let amount = $('#inputAmount').val();
-            let wei = (amount.split(".")[1]).length;
-            if(wei > 18)
-            {
-              alert("小数点后不能超过18位");
-              return;
-            }
-            let symbol = ($('#inputSymbol').val()).toUpperCase();
-            if(symbol == "" || " " == symbol.match(" ") || symbol.length > 6){
-              alert("符号格式不对，不能为空，不能超过6位或有空格");
-              return;
-            }
-            let supply = amount + " " + symbol;
-
-            let quantity = $('#inputFee').val();
-
-            let contractAcnt = "tokencreator";
-
-            //发送enu至合约账户
-            tp.enuTokenTransfer({
-                from: accountName,
-                to: contractAcnt,
-                amount: quantity,
-                tokenName: 'ENU',
-                precision: 4,
-                contract: 'enu.token',
-                memo: supply,
-                address: acntAddress
-            }).then(function (result) {
-                if (result.result) {
-                    let url = `http://enumivo.qsx.io/transactions/${result.data.transactionId}`;
-                    alert("创建成功: "+ url);
-                }else {
-                    alert("enu转账失败,请检查余额");
-                }
             });
-    });
 
+            $('#createToken').on('click', function (event) {
+                    console.log("createToken Button Clicked");
+                    event.preventDefault();
+                    let accountName = $('#inputAccount').val();
+                    
+                    //检查输入格式
+                    if(accountName == ""){
+                    alert("账户不能为空");
+                    return;
+                    }
+                    let amount = $('#inputAmount').val();
+                    let wei = (amount.split(".")[1]).length;
+                    if(wei > 18)
+                    {
+                    alert("小数点后不能超过18位");
+                    return;
+                    }
+                    let symbol = ($('#inputSymbol').val()).toUpperCase();
+                    if(symbol == "" || " " == symbol.match(" ") || symbol.length > 6){
+                    alert("符号格式不对，不能为空，不能超过6位或有空格");
+                    return;
+                    }
+                    let supply = amount + " " + symbol;
+
+                    let quantity = $('#inputFee').val();
+
+                    let contractAcnt = "tokencreator";
+
+                    //发送enu至合约账户
+                    tp.enuTokenTransfer({
+                        from: accountName,
+                        to: contractAcnt,
+                        amount: quantity,
+                        tokenName: 'ENU',
+                        precision: 4,
+                        contract: 'enu.token',
+                        memo: supply,
+                        address: acntAddress
+                    }).then(function (result) {
+                        if (result.result) {
+                            let url = `http://enumivo.qsx.io/transactions/${result.data.transactionId}`;
+                            alert("创建成功: "+ url);
+                        }else {
+                            alert("enu转账失败,请检查余额");
+                        }
+                    });
+            });
+
+                }
+                else{
+                    alert("获取当前用户信息失败");
+                    return;
+                };
+            });
+
+    
+
+    
 });
 
 
