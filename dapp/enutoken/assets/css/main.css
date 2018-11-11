@@ -17,8 +17,8 @@ body{
 }
 
 .btn-warning:disabled {
-    background: rgb(240, 93, 62);
-    border: rgb(240, 93, 62);
+    background: rgb(240, 113, 62);
+    border: rgb(240, 113, 62);
     color: white;
 }
 
