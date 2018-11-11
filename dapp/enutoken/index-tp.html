@@ -168,6 +168,7 @@ $(document).ready(function () {
             alert("BalanceRefresh");
 
             $("#tokenSel").change(function() {
+                alert(arrBalance.length);
                 if(arrBalance.length > 0) {
                     $('#inputAmount2').attr('placeholder','余额: '+arrBalance[$("#tokenSel option:selected").val()]);
                 }
