@@ -138,6 +138,7 @@ $(document).ready(function () {
                 }).then(function (result) {
                     if (result.result) {
                         let length = result.data.rows.length;
+                        alert(length);
                         $("#tokenSel").empty();
                         var opts = "";
                         arrBalance = [];
