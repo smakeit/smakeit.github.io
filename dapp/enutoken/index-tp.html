@@ -167,7 +167,6 @@ $(document).ready(function () {
             BalanceRefresh();
 
             $("#tokenSel").change(function() {
-                alert(arrBalance.length);
                 if(arrBalance.length > 0) {
                     $('#inputAmount2').attr('placeholder','余额: '+arrBalance[$("#tokenSel option:selected").val()]);
                 }
@@ -227,6 +226,7 @@ $(document).ready(function () {
                     account: sender
                 }).then(function (result) {
                     if (result.result) {
+                        BalanceRefresh();
                         let url = `http://enumivo.qsx.io/transactions/${result.data.transactionId}`;
                         alert("转账成功: "+ url);
                     }
@@ -277,6 +277,7 @@ $(document).ready(function () {
                         address: acntAddress
                     }).then(function (result) {
                         if (result.result) {
+                            BalanceRefresh();
                             let url = `http://enumivo.qsx.io/transactions/${result.data.transactionId}`;
                             alert("创建成功: "+ url);
                         }else {
