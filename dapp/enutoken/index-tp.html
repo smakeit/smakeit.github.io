@@ -132,13 +132,13 @@ $(document).ready(function () {
             $('#inputAccount').length && $('#inputAccount').prop('disabled', true);
             $('#inputSender').length && $('#inputSender').prop('disabled', true);
 
-            function BalanceRefresh() {
-                    tp.getEnuTableRows({
-                    json: true,
-                    code: 'tokencreator',
-                    scope: acntName,
-                    table: 'accounts',
-                    limit: 500
+            function BalanceRefresh(acntName, arrBalance) {
+                tp.getEnuTableRows({
+                json: true,
+                code: 'tokencreator',
+                scope: acntName,
+                table: 'accounts',
+                limit: 500
                 }).then(function (result) {
                     if (result.result) {
                         let length = result.data.rows.length;
@@ -164,7 +164,7 @@ $(document).ready(function () {
                 });
             };
             
-            BalanceRefresh();
+            BalanceRefresh(acntName, arrBalance);
             aler("BalanceRefresh");
 
             $("#tokenSel").change(function() {
