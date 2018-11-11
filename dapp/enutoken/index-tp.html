@@ -132,7 +132,7 @@ $(document).ready(function () {
             $('#inputAccount').length && $('#inputAccount').prop('disabled', true);
             $('#inputSender').length && $('#inputSender').prop('disabled', true);
 
-            function BalanceRefresh(acntName, arrBalance) {
+            function BalanceRefresh() {
                 tp.getEnuTableRows({
                 json: true,
                 code: 'tokencreator',
@@ -164,8 +164,7 @@ $(document).ready(function () {
                 });
             };
             
-            BalanceRefresh(acntName, arrBalance);
-            alert("BalanceRefresh");
+            BalanceRefresh();
 
             $("#tokenSel").change(function() {
                 alert(arrBalance.length);
