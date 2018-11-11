@@ -229,6 +229,7 @@ $(document).ready(function () {
                     }
                     else{
                         alert("转账token失败");
+                        BalanceRefresh();
                         return;
                     };
                 });
@@ -279,6 +280,7 @@ $(document).ready(function () {
                             alert("创建成功: "+ url);
                         }else {
                             alert("enu转账失败,请检查余额");
+                            BalanceRefresh();
                         }
                     });
             });
