@@ -17,11 +17,7 @@
         <link href="assets/css/main.css" rel="stylesheet">
         <link href='https://cdn.baomitu.com/index/fonts/css?family=Montserrat' rel='stylesheet' type='text/css'>
         <link href='https://cdn.baomitu.com/index/fonts/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
-        <style>
-                body{
-                    background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSI+CjxyZWN0IHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgZmlsbD0iIzI4MjgyOCI+PC9yZWN0Pgo8Y2lyY2xlIGN4PSIzIiBjeT0iNC4zIiByPSIxLjgiIGZpbGw9IiMzOTM5MzkiPjwvY2lyY2xlPgo8Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMS44IiBmaWxsPSJibGFjayI+PC9jaXJjbGU+CjxjaXJjbGUgY3g9IjEwLjUiIGN5PSIxMi41IiByPSIxLjgiIGZpbGw9IiMzOTM5MzkiPjwvY2lyY2xlPgo8Y2lyY2xlIGN4PSIxMC41IiBjeT0iMTEuMyIgcj0iMS44IiBmaWxsPSJibGFjayI+PC9jaXJjbGU+Cjwvc3ZnPg==");
-                }
-        </style>
+
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
         <a class="navbar-brand" style="margin-left: 20px; margin-top: 15px; font-size:25px; font-weight: 800; color: white" href="#">ENU Token Creator</a>
@@ -59,7 +55,7 @@
                                                 <label for="inputFee" id="labelFee" class="inputLabel">支付费用/Fee(ENU)</label>
                                                 <input type="fee" id="inputFee" class="form-control" readonly value="3.0000" required>
                                             </div>
-                                            <button type="button" id="createToken" class="btn btn-success btn-block" disabled="disabled" style="margin-top: 20px;">发币/Create</button>
+                                            <button type="button" id="createToken" class="btn btn-warning btn-block" disabled="disabled" style="margin-top: 20px;">发币/Create</button>
                                         </div>
                                         <div class="tab-pane fade" id="transfer">
                                             <br>
@@ -88,7 +84,7 @@
                                                 <input type="amount" id="inputMemo" class="form-control" required>
                                             </div>
                                       
-                                            <button type="button" id="sendToken" class="btn btn-success btn-block" disabled="disabled" style="margin-top: 20px;">转账/Transfer</button>
+                                            <button type="button" id="sendToken" class="btn btn-warning btn-block" disabled="disabled" style="margin-top: 20px;">转账/Transfer</button>
                                          </div>
                                       </div>
                                 </div>
