@@ -9,7 +9,8 @@ body{
     color: white;
 }
 
-.btn-warning:active {
+.btn-warning:hover,
+.btn-warning:focus {
     background: rgb(255, 66, 0);
     border: rgb(255, 66, 0);
     color: white;
