@@ -119,6 +119,7 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
             json: true
         }).then(table => {
             let length = table.rows.length;
+            alert(length);
             $('#tokenSel').empty();
             var opts = "";
             arrTokenBalance = [];
@@ -187,6 +188,7 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                         alert("转账成功: "+ url);
                     }).catch(e => {
                         console.log("error", e);
+                        BalanceRefresh();
                         if (e.toString().includes("overdrawn balance")) {
                             alert("No money, go back to Getting Started and refill")
                         }

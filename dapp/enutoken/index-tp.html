@@ -138,7 +138,6 @@ $(document).ready(function () {
                 }).then(function (result) {
                     if (result.result) {
                         let length = result.data.rows.length;
-                        alert(length);
                         $("#tokenSel").empty();
                         var opts = "";
                         arrBalance = [];
@@ -229,7 +228,6 @@ $(document).ready(function () {
                     }
                     else{
                         alert("转账token失败");
-                        BalanceRefresh();
                         return;
                     };
                 });
@@ -280,7 +278,6 @@ $(document).ready(function () {
                             alert("创建成功: "+ url);
                         }else {
                             alert("enu转账失败,请检查余额");
-                            BalanceRefresh();
                         }
                     });
             });
