@@ -3,40 +3,6 @@ body{
     background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSI+CjxyZWN0IHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgZmlsbD0iIzI4MjgyOCI+PC9yZWN0Pgo8Y2lyY2xlIGN4PSIzIiBjeT0iNC4zIiByPSIxLjgiIGZpbGw9IiMzOTM5MzkiPjwvY2lyY2xlPgo8Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMS44IiBmaWxsPSJibGFjayI+PC9jaXJjbGU+CjxjaXJjbGUgY3g9IjEwLjUiIGN5PSIxMi41IiByPSIxLjgiIGZpbGw9IiMzOTM5MzkiPjwvY2lyY2xlPgo8Y2lyY2xlIGN4PSIxMC41IiBjeT0iMTEuMyIgcj0iMS44IiBmaWxsPSJibGFjayI+PC9jaXJjbGU+Cjwvc3ZnPg==");
 }
 
-.btn-warning {
-    background: rgb(255, 98, 0);
-    border: rgb(255, 98, 0);
-    color: white;
-}
-
-.btn-warning:hover,
-.btn-warning:focus {
-    background: rgb(255, 66, 0);
-    border: rgb(255, 66, 0);
-    color: white;
-}
-
-.btn-warning:active {
-    background: rgb(255, 98, 0);
-    border: rgb(255, 98, 0);
-    color: white;
-}
-
-.btn-warning:disabled {
-    background: rgb(240, 113, 62);
-    border: rgb(240, 113, 62);
-    color: white;
-}
-
-.form-control:focus {
-    border-color: rgba(255,109,45,.25);
-    -webkit-box-shadow:0 0 0 0px #e4e5e6,0 0 0 .2rem rgba(255,109,45,.25);
-    box-shadow:0 0 0 0px #e4e5e6,0 0 0 .2rem rgba(255,109,45,.25)
-}
-
-
-
-
 /* Links */
 a {
     color: dimgray;
