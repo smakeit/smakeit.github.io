@@ -33,6 +33,7 @@ function initIronman(callback) {
                 $('#inputAccount').val(accountName);
                 $('#inputSender').val(accountName);
                 $('#inputAccount').length && $('#inputAccount').prop('disabled', true);
+                $('#inputFee').length && $('#inputSender').prop('disabled', true);
                 $('#inputSender').length && $('#inputSender').prop('disabled', true);
                 //获取ENU instance
                 const enu = ironman.enu(enuNetwork, Enu, enuOptions, "https");

@@ -126,6 +126,7 @@ $(document).ready(function () {
             $('#inputAccount').val(acntName);
             $('#inputSender').val(acntName);
             $('#inputAccount').length && $('#inputAccount').prop('disabled', true);
+            $('#inputFee').length && $('#inputSender').prop('disabled', true);
             $('#inputSender').length && $('#inputSender').prop('disabled', true);
 
             function BalanceRefresh() {
