@@ -245,11 +245,19 @@ $(document).ready(function () {
                     return;
                     }
                     let amount = $('#inputAmount').val();
+                    if (parseFloat(amount).toString() == "NaN") {
+                        alert("请检查token数量或精度");
+                        return;
+                    }
+                    if(-1 == parseFloat(amount).toString().indexOf(".")) {
+                        alert("请填写token精度");
+                        return;
+                    }
                     let wei = (amount.split(".")[1]).length;
                     if(wei > 18)
                     {
-                    alert("小数点后不能超过18位");
-                    return;
+                        alert("小数点后不能超过18位");
+                        return;
                     }
                     let symbol = ($('#inputSymbol').val()).toUpperCase();
                     if(symbol == "" || " " == symbol.match(" ") || symbol.length > 6){

@@ -81,7 +81,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputMemo" class="inputLabel">备注/Memo</label>
-                                                <input type="amount" id="inputMemo" class="form-control" required>
+                                                <input type="memo" id="inputMemo" class="form-control" required>
                                             </div>
                                       
                                             <button type="button" id="sendToken" class="btn btn-secondary btn-block" disabled="disabled" style="margin-top: 20px;">转账/Transfer</button>
@@ -205,6 +205,14 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
               return;
             }
             let amount = $('#inputAmount').val();
+            if (parseFloat(amount).toString() == "NaN") {
+                alert("请检查token数量或精度");
+                return;
+            }
+            if(-1 == parseFloat(amount).toString().indexOf(".")) {
+                alert("请填写token精度");
+                return;
+            }
             let wei = (amount.split(".")[1]).length;
             if(wei > 18)
             {
