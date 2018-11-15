@@ -134,7 +134,8 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                 $('#inputAmount2').attr('placeholder','余额balance: '+arrTokenBalance[0]);
             }
         });
-    }
+    };
+
     $("#tokenSel").change(function() {
         if(arrTokenBalance.length > 0) {
             $('#inputAmount2').attr('placeholder','余额balance: '+arrTokenBalance[$("#tokenSel option:selected").val()]);
@@ -181,7 +182,11 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                     requiredFields
                 }).then(contract => {
                     contract.transfer( sender, receiver, quantity, memo ,{authorization: sender}).then(trx => {
-                        BalanceRefresh();
+                        //BalanceRefresh();
+                        let newBalance = parseFloat(balance).toFixed(GetPrecision(balance)) - parseFloat(amount).toFixed(GetPrecision(balance));
+                        arrTokenBalance[$("#tokenSel option:selected").val()] = newBalance.toString();
+                        $('#inputAmount2').attr('placeholder','余额balance: '+newBalance.toString());
+
                         let url = `http://enumivo.qsx.io/transactions/${trx.transaction_id}`;
                         console.log("trans success", url);
                         //$('.message-transfer').show(400);
