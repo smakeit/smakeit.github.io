@@ -200,7 +200,7 @@ $(document).ready(function () {
                     return;
                 }
 
-                let amountTmp = amount.toFixed(GetPrecision(balance));
+                let amountTmp = parseFloat(amount).toFixed(GetPrecision(balance));
 
                 let quantity = amountTmp + " " + symbol;
                 let memo = $('#inputMemo').val();
