@@ -170,7 +170,7 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                     alert("余额不足");
                     return;
                 }
-                let amountTmp = amount.toFixed(GetPrecision(balance));
+                let amountTmp = parseFloat(amount).toFixed(GetPrecision(balance));
 
                 let quantity = amountTmp + " " + symbol;
 
