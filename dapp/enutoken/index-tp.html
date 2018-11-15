@@ -235,8 +235,7 @@ $(document).ready(function () {
                         alert("转账成功: "+ url);
                     }
                     else{
-                        alert("转账token失败");
-                        return;
+                        //alert("转账token失败");
                     };
                 });
             });
@@ -293,7 +292,7 @@ $(document).ready(function () {
                             let url = `http://enumivo.qsx.io/transactions/${result.data.transactionId}`;
                             alert("创建成功: "+ url);
                         }else {
-                            alert("enu转账失败,请检查余额");
+                            //alert("enu转账失败,请检查余额");
                         }
                     });
             });
