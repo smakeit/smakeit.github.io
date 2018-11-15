@@ -182,7 +182,7 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                     requiredFields
                 }).then(contract => {
                     contract.transfer( sender, receiver, quantity, memo ,{authorization: sender}).then(trx => {
-                        //BalanceRefresh();
+
                         let newBalance = (parseFloat(balance) - parseFloat(amount)).toFixed(GetPrecision(balance));
                         arrTokenBalance[$("#tokenSel option:selected").val()] = newBalance.toString();
                         $('#inputAmount2').attr('placeholder','余额balance: '+newBalance.toString());

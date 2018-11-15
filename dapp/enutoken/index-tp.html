@@ -226,7 +226,11 @@ $(document).ready(function () {
                     account: sender
                 }).then(function (result) {
                     if (result.result) {
-                        BalanceRefresh();
+                        
+                        let newBalance = (parseFloat(balance) - parseFloat(amount)).toFixed(GetPrecision(balance));
+                        arrBalance[$("#tokenSel option:selected").val()] = newBalance.toString();
+                        $('#inputAmount2').attr('placeholder','余额: '+newBalance.toString());
+
                         let url = `http://enumivo.qsx.io/transactions/${result.data.transactionId}`;
                         alert("转账成功: "+ url);
                     }
