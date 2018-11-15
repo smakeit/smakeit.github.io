@@ -170,7 +170,10 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                     alert("余额不足");
                     return;
                 }
-                let quantity = amount + " " + symbol;
+                let amountTmp = amount.toFixed(GetPrecision(balance));
+
+                let quantity = amountTmp + " " + symbol;
+
                 let memo = $('#inputMemo').val();
 
                 //转账token
@@ -251,6 +254,14 @@ function cb(ironman, enu, requiredFields, account, arrTokenBalance) {
                  })
              });
     });
+    function GetPrecision(balance) {
+        if(-1 == balance.indexOf(".")) {
+            return 0;
+        } 
+        else {
+            return (balance.split(".")[1]).length;
+        }
+    };
 }
 
 </script>
