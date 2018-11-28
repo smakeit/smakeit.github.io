@@ -255,7 +255,7 @@ $(document).ready(function () {
                         alert("请检查发币数量或精度");
                         return;
                     }
-                    if(-1 == parseFloat(amount).toString().indexOf(".")) {
+                    if(-1 == amount.indexOf(".")) {
                         alert("请填写发币精度，小数点后几位代表精度是几");
                         return;
                     }
