@@ -113,7 +113,7 @@ $(document).ready(function () {
     var acntAddress = '';
     var arrBalance = [];
     if(!tp.isConnected()) {
-        alert("tp钱包连接失败");
+        alert("tp钱包连接失败\nTokenPocket connection failed");
         return;
     }
     $('#createToken').length && $('#createToken').prop('disabled', false);
@@ -155,7 +155,7 @@ $(document).ready(function () {
                         }
                     }
                     else{
-                        alert("获取当前用户token信息失败");
+                        alert("获取当前用户token信息失败\nError in obtain your token information");
                         return;
                     };
                 });
@@ -175,28 +175,28 @@ $(document).ready(function () {
                 let sender = $('#inputSender').val();
                 //检查输入格式
                 if(sender == ""){
-                    alert("发送账户不能为空");
+                    alert("发送账户不能为空\nError, sender is empty");
                     return;
                 }
                 let receiver = $('#inputReceiver').val();
                 //检查输入格式
                 if(receiver == ""){
-                    alert("接收账户不能为空");
+                    alert("接收账户不能为空\nError, receiver is empty");
                     return;
                 }
                 var symbol=$("#tokenSel option:selected").text();
                 let amount = $('#inputAmount2').val();
                 let balance = arrBalance[$("#tokenSel option:selected").val()];
                 if (parseFloat(amount).toString() == "NaN") {
-                    alert("填写转账数量错误");
+                    alert("填写转账数量错误,必须是数字\nError in quantity, must be a number");
                     return;
                 }
                 if (parseFloat(balance).toString() == "NaN") {
-                    alert("获取余额数量错误");
+                    alert("获取余额数量错误\nError in obtaining balance quantity");
                     return;
                 }
                 if (parseFloat(amount) >  parseFloat(balance)) {
-                    alert("余额不足");
+                    alert("余额不足\nError, balance is not enough");
                     return;
                 }
 
@@ -232,7 +232,7 @@ $(document).ready(function () {
                         $('#inputAmount2').attr('placeholder','余额: '+newBalance.toString());
 
                         let url = `http://enumivo.qsx.io/transactions/${result.data.transactionId}`;
-                        alert("转账成功: "+ url);
+                        alert("转账成功/Transfer Success: "+ url);
                     }
                     else{
                         //alert("转账token失败");
@@ -247,27 +247,27 @@ $(document).ready(function () {
                     
                     //检查输入格式
                     if(accountName == ""){
-                    alert("账户不能为空");
+                    alert("账户不能为空\nError, account is empty");
                     return;
                     }
                     let amount = $('#inputAmount').val();
                     if (parseFloat(amount).toString() == "NaN") {
-                        alert("请检查发币数量或精度");
+                        alert("请检查发币数量或精度\nError, please check out amount or precision");
                         return;
                     }
                     if(-1 == amount.indexOf(".")) {
-                        alert("请填写发币精度，小数点后几位代表精度是几");
+                        alert("请填写发币精度，小数点后几位代表精度是几\nError, please fill in the precision, number of decimal digits is precision");
                         return;
                     }
                     let wei = (amount.split(".")[1]).length;
                     if(wei > 18)
                     {
-                        alert("小数点后不能超过18位");
+                        alert("小数点后不能超过18位\nError, number of decimal digits is great than 18");
                         return;
                     }
                     let symbol = ($('#inputSymbol').val()).toUpperCase();
-                    if(symbol == "" || " " == symbol.match(" ") || symbol.length > 6){
-                    alert("符号格式不对，不能为空，不能超过6位或有空格");
+                    if(symbol == "" || " " == symbol.match(" ")){
+                    alert("符号格式不对，不能为空或不能有空格\nError in symbol format, no empty or no space");
                     return;
                     }
                     let supply = amount + " " + symbol;
@@ -290,7 +290,7 @@ $(document).ready(function () {
                         if (result.result) {
                             BalanceRefresh();
                             let url = `http://enumivo.qsx.io/transactions/${result.data.transactionId}`;
-                            alert("创建成功: "+ url);
+                            alert("创建成功/Create Success: "+ url);
                         }else {
                             //alert("enu转账失败,请检查余额");
                         }
