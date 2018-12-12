@@ -266,8 +266,8 @@ $(document).ready(function () {
                         return;
                     }
                     let symbol = ($('#inputSymbol').val()).toUpperCase();
-                    if(symbol == "" || " " == symbol.match(" ")){
-                    alert("符号格式不对，不能为空或不能有空格\nError in symbol format, no empty or no space");
+                    if(symbol == "" || " " == symbol.match(" ") || symbol.length > 6){
+                    alert("符号格式不对，不能为空或不能有空格, 符号长度必须小于7\nError in symbol format, no empty or no space, or symbol length must be less than 7");
                     return;
                     }
                     let supply = amount + " " + symbol;
